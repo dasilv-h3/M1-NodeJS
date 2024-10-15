@@ -11,18 +11,28 @@ services:
       NODE_ENV: development
     depends_on:
       - db
+    restart: always
   db:
     image: mysql:8.1
     container_name: mysql_db
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: my_database
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
     volumes:
-      - db_data:/var/lib/mysql
+      - ./config/sql/bdd.sql:/docker-entrypoint-initdb.d/bdd.sql
     ports:
       - "3306:3306"
+    restart: always
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+    restart: always
+    depends_on:
+      - db
 
 volumes:
   db_data:
