@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS sponsors (
 -- Création de la table matches
 CREATE TABLE IF NOT EXISTS matches (
     id SERIAL PRIMARY KEY,
-    category ENUM('masculin junior', 'masculin senior', 'feminin junior', 'feminin senior'),
+    section_id INT,
     score VARCHAR(50),
     opponent VARCHAR(255),
     date DATETIME
@@ -66,20 +66,29 @@ CREATE TABLE IF NOT EXISTS matches (
 CREATE TABLE IF NOT EXISTS teams (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
-    category ENUM('masculin junior', 'masculin senior', 'feminin junior', 'feminin senior')
+    section_id INT,
+    CONSTRAINT fk_section_id FOREIGN KEY (section_id) REFERENCES sections(id)
+);
+
+-- Création de la table sections
+CREATE TABLE IF NOT EXISTS sections (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255)
 );
 
 -- Ajout des relations entre les tables
 ALTER TABLE news ADD CONSTRAINT fk_club_id FOREIGN KEY (id) REFERENCES club(id);
 ALTER TABLE matches ADD CONSTRAINT fk_team_id FOREIGN KEY (id) REFERENCES teams(id);
 ALTER TABLE sponsors ADD CONSTRAINT fk_club_id FOREIGN KEY (id) REFERENCES club(id);
+ALTER TABLE matches ADD CONSTRAINT fk_section_id FOREIGN KEY (section_id) REFERENCES sections(id);
+
 
 -- INSERT USERS
 INSERT INTO users (email, password, first_name, last_name, role)
 VALUES ('admin@example.com', 'securepassword', 'Admin', 'User', 'admin');
 
 -- INSERT FEATURES
-INSERT INTO features ()
+INSERT INTO features (name)
 VALUES ('Présentation du club'),
 ('Actualités'),
 ('Partenaires'),
@@ -89,14 +98,39 @@ VALUES ('Présentation du club'),
 INSERT INTO authorizations (user_id, can_create, can_edit, can_delete)
 VALUES (1, TRUE, TRUE, TRUE);
 
--- INSERT TEAMS
-INSERT INTO teams (name, category)
+-- INSERT SECTIONS
+INSERT INTO sections (name)
+VALUES
+('masculin junior'),
+('masculin senior'),
+('feminin junior'),
+('feminin senior');
+
+
+-- Insertion des équipes dans la table teams avec les correspondances de section_id
+INSERT INTO teams (name, section_id)
 VALUES 
-('Paris FC', 'masculin junior'),
-('Marseille', 'masculin senior'),
-('Olympique lyonnais', 'feminin junior'),
-('Toulouse', 'feminin senior'),
-('Girondin de Bordeaux', 'masculin junior');
+('Paris FC', 1),
+('Paris FC', 2),
+('Paris FC', 3),
+('Paris FC', 4),
+('Marseille', 1),
+('Marseille', 2),
+('Marseille', 3),
+('Marseille', 4),
+('Olympique lyonnais', 1),
+('Olympique lyonnais', 2),
+('Olympique lyonnais', 3),
+('Olympique lyonnais', 4),
+('Toulouse', 1),
+('Toulouse', 2),
+('Toulouse', 3),
+('Toulouse', 4),
+('Girondin de Bordeaux', 1),
+('Girondin de Bordeaux', 2),
+('Girondin de Bordeaux', 3),
+('Girondin de Bordeaux', 4);
+
 
 -- INSERT SPONSORS
 INSERT INTO sponsors (logo, url)
@@ -106,15 +140,15 @@ VALUES
 ('Tesla', 'https://www.tesla.com/fr_fr');
 
 -- INSERT MATCHES (score: premier résultat est le score du club)
-INSERT INTO matches (category, score, opponent, date)
+INSERT INTO matches (section_id, score, opponent, date)
 VALUES
-('masculin junior', '2-1', 'Lille OSC', '2024-10-05 15:00:00'),
-('masculin senior', '3-0', 'AS Monaco', '2024-10-06 18:30:00'),
-('feminin junior', '1-1', 'Montpellier HSC', '2024-10-07 14:00:00'),
-('feminin senior', '4-2', 'OGC Nice', '2024-10-08 17:45:00'),
-('masculin junior', '0-2', 'RC Strasbourg', '2024-10-09 16:00:00'),
-('masculin senior', '1-3', 'Rennes', '2024-10-10 19:00:00'),
-('feminin junior', '2-2', 'PSG', '2024-10-14 15:30:00'),
-('feminin senior', '3-1', 'FC Nantes', '2024-10-15 18:00:00'),
-('masculin junior', '1-0', 'Angers SCO', '2024-10-16 14:00:00'),
-('feminin senior', '0-0', 'FC Metz', '2024-10-17 16:45:00');
+(1, '2-1', 'Lille OSC', '2024-10-05 15:00:00'),
+(2, '3-0', 'AS Monaco', '2024-10-06 18:30:00'),
+(3, '1-1', 'Montpellier HSC', '2024-10-07 14:00:00'),
+(4, '4-2', 'OGC Nice', '2024-10-08 17:45:00'),
+(1, '0-2', 'RC Strasbourg', '2024-10-09 16:00:00'),
+(2, '1-3', 'Rennes', '2024-10-10 19:00:00'),
+(3, '2-2', 'PSG', '2024-10-14 15:30:00'),
+(4, '3-1', 'FC Nantes', '2024-10-15 18:00:00'),
+(1, '1-0', 'Angers SCO', '2024-10-16 14:00:00'),
+(4, '0-0', 'FC Metz', '2024-10-17 16:45:00');
