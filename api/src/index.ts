@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import verifyToken from './middleware/verifyToken.js';
 const app = express();
 
 const port = 5000;
