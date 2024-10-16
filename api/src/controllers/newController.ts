@@ -1,4 +1,4 @@
-// src/controllers/matchController.ts
+// src/controllers/newController.ts
 import { Request, Response } from 'express';
 import {
     getAllNews,
@@ -29,12 +29,12 @@ export const fetchNewsById = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Invalid New ID' });
         }
 
-        const match = await getNewsById(id);
-        if (!match) {
+        const news = await getNewsById(id);
+        if (!news) {
             return res.status(404).json({ message: 'New not found' });
         }
 
-        res.status(200).json(match);
+        res.status(200).json(news);
     } catch (error) {
         console.error('Error fetching new:', error);
         res.status(500).json({ message: 'Internal Server Error' });
@@ -93,7 +93,7 @@ export const removeNew = async (req: Request, res: Response) => {
 
         res.status(200).json({ message: 'New deleted successfully' });
     } catch (error) {
-        console.error('Error deleting match:', error);
+        console.error('Error deleting new:', error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
