@@ -1,6 +1,6 @@
 
 import pool from '../utils/db.js';
-import Match from '../models/Match.js';
+import Match from '../models/Matches.js';
 import mysql from 'mysql2/promise';
 
 export const getAllMatches = async (): Promise<Match[]> => {

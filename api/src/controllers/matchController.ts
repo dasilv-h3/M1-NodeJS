@@ -7,7 +7,7 @@ import {
     updateMatch,
     deleteMatch
 } from '../services/matchServices.js';
-import Match from '../models/Match.js';
+import Match from '../models/Matches.js';
 
 export const fetchAllMatches = async (req: Request, res: Response) => {
     try {
