@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS authorizations (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Création de la table features (sans la virgule en trop)
+-- Création de la table features
 CREATE TABLE IF NOT EXISTS features (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
@@ -127,8 +127,6 @@ VALUES ('admin@example.com', 'securepassword', 'Admin', 'User', 1, TRUE, 7777),
 INSERT INTO features (name)
 VALUES 
 ('Présentation du club'),
-VALUES 
-('Présentation du club'),
 ('Actualités'),
 ('Partenaires'),
 ('Matchs');
@@ -145,10 +143,6 @@ VALUES
 ('feminin junior'),
 ('feminin senior');
 
--- INSERT CLUBS
-INSERT INTO club (description, history)
-VALUES 
-('Description du Club XYZ', 'Histoire du Club XYZ');
 -- INSERT CLUBS
 INSERT INTO club (description, history)
 VALUES 
@@ -179,7 +173,6 @@ VALUES
 ('Girondin de Bordeaux', 4);
 
 -- INSERT SPONSORS
-INSERT INTO sponsors (logo, url, club_id)
 INSERT INTO sponsors (logo, url, club_id)
 VALUES 
 ('Nike', 'https://www.nike.com/fr/', 1),
