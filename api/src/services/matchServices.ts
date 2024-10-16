@@ -15,10 +15,10 @@ export const getMatchById = async (id: number): Promise<Match | null> => {
 };
 
 export const createMatch = async (match: Match): Promise<number> => {
-    const { section_id, score, opponent, date } = match;
+    const { section_id, score, team_id, date } = match;
     const [result] = await pool.execute(
-        'INSERT INTO matches (section_id, score, opponent, date) VALUES (?, ?, ?, ?)',
-        [section_id, score, opponent, date]
+        'INSERT INTO matches (section_id, score, team_id, date) VALUES (?, ?, ?, ?)',
+        [section_id, score, team_id, date]
     );
     const insertResult = result as mysql.ResultSetHeader;
     return insertResult.insertId;
