@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import argon2 from 'argon2';
 import express, { Request, Response } from 'express';
-import User from './models/User'; 
+import Users from '../models/Users.js'; 
 import { IUser } from './interfaces/User'; 
 
 const router = express.Router();
