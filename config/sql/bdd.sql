@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS roles (
 -- Création de la table users
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     first_name VARCHAR(100),
@@ -32,8 +31,6 @@ CREATE TABLE IF NOT EXISTS authorizations (
     can_edit BOOLEAN DEFAULT FALSE,
     can_delete BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-    can_delete BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Création de la table features (sans la virgule en trop)
@@ -44,7 +41,6 @@ CREATE TABLE IF NOT EXISTS features (
 
 -- Création de la table sections
 CREATE TABLE IF NOT EXISTS sections (
-    id INT AUTO_INCREMENT PRIMARY KEY,
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
@@ -88,7 +84,6 @@ CREATE TABLE IF NOT EXISTS teams (
 -- Création de la table news
 CREATE TABLE IF NOT EXISTS news (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     resume VARCHAR(255),
     description TEXT,
@@ -97,19 +92,12 @@ CREATE TABLE IF NOT EXISTS news (
     edit_at TIMESTAMP,
     club_id INT,
     FOREIGN KEY (club_id) REFERENCES club(id) ON DELETE SET NULL
-    edit_at TIMESTAMP,
-    club_id INT,
-    FOREIGN KEY (club_id) REFERENCES club(id) ON DELETE SET NULL
 );
 
 -- Création de la table sponsors
 CREATE TABLE IF NOT EXISTS sponsors (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id INT AUTO_INCREMENT PRIMARY KEY,
     logo VARCHAR(255),
-    url LONGTEXT,
-    club_id INT,
-    FOREIGN KEY (club_id) REFERENCES club(id) ON DELETE SET NULL
     url LONGTEXT,
     club_id INT,
     FOREIGN KEY (club_id) REFERENCES club(id) ON DELETE SET NULL
@@ -118,9 +106,7 @@ CREATE TABLE IF NOT EXISTS sponsors (
 -- Création de la table matches
 CREATE TABLE IF NOT EXISTS matches (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id INT AUTO_INCREMENT PRIMARY KEY,
     section_id INT,
-    team_id INT,
     team_id INT,
     score VARCHAR(50),
     date DATETIME,
