@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS roles (
 -- Création de la table users
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     first_name VARCHAR(100),
@@ -25,14 +26,25 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS authorizations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
     can_create BOOLEAN DEFAULT FALSE,
     can_edit BOOLEAN DEFAULT FALSE,
+    can_delete BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     can_delete BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Création de la table features (sans la virgule en trop)
 CREATE TABLE IF NOT EXISTS features (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+-- Création de la table sections
+CREATE TABLE IF NOT EXISTS sections (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
@@ -58,8 +70,24 @@ CREATE TABLE IF NOT EXISTS teams (
     FOREIGN KEY (section_id) REFERENCES sections(id) ON DELETE SET NULL
 );
 
+-- Création de la table club
+CREATE TABLE IF NOT EXISTS club (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    description TEXT,
+    history TEXT
+);
+
+-- Création de la table teams
+CREATE TABLE IF NOT EXISTS teams (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    section_id INT,
+    FOREIGN KEY (section_id) REFERENCES sections(id) ON DELETE SET NULL
+);
+
 -- Création de la table news
 CREATE TABLE IF NOT EXISTS news (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     resume VARCHAR(255),
@@ -69,12 +97,19 @@ CREATE TABLE IF NOT EXISTS news (
     edit_at TIMESTAMP,
     club_id INT,
     FOREIGN KEY (club_id) REFERENCES club(id) ON DELETE SET NULL
+    edit_at TIMESTAMP,
+    club_id INT,
+    FOREIGN KEY (club_id) REFERENCES club(id) ON DELETE SET NULL
 );
 
 -- Création de la table sponsors
 CREATE TABLE IF NOT EXISTS sponsors (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     logo VARCHAR(255),
+    url LONGTEXT,
+    club_id INT,
+    FOREIGN KEY (club_id) REFERENCES club(id) ON DELETE SET NULL
     url LONGTEXT,
     club_id INT,
     FOREIGN KEY (club_id) REFERENCES club(id) ON DELETE SET NULL
@@ -83,7 +118,9 @@ CREATE TABLE IF NOT EXISTS sponsors (
 -- Création de la table matches
 CREATE TABLE IF NOT EXISTS matches (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     section_id INT,
+    team_id INT,
     team_id INT,
     score VARCHAR(50),
     date DATETIME,
@@ -104,6 +141,8 @@ VALUES ('admin@example.com', 'securepassword', 'Admin', 'User', 1, TRUE, 7777),
 INSERT INTO features (name)
 VALUES 
 ('Présentation du club'),
+VALUES 
+('Présentation du club'),
 ('Actualités'),
 ('Partenaires'),
 ('Matchs');
@@ -120,6 +159,10 @@ VALUES
 ('feminin junior'),
 ('feminin senior');
 
+-- INSERT CLUBS
+INSERT INTO club (description, history)
+VALUES 
+('Description du Club XYZ', 'Histoire du Club XYZ');
 -- INSERT CLUBS
 INSERT INTO club (description, history)
 VALUES 
@@ -151,7 +194,11 @@ VALUES
 
 -- INSERT SPONSORS
 INSERT INTO sponsors (logo, url, club_id)
+INSERT INTO sponsors (logo, url, club_id)
 VALUES 
+('Nike', 'https://www.nike.com/fr/', 1),
+('Amazon', 'https://www.amazon.fr/', 1),
+('Tesla', 'https://www.tesla.com/fr_fr', 1);
 ('Nike', 'https://www.nike.com/fr/', 1),
 ('Amazon', 'https://www.amazon.fr/', 1),
 ('Tesla', 'https://www.tesla.com/fr_fr', 1);
