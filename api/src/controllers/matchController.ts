@@ -44,8 +44,8 @@ export const fetchMatchById = async (req: Request, res: Response) => {
 export const addMatch = async (req: Request, res: Response) => {
     try {
         const match: Match = req.body;
-
-        if (!match.section_id || !match.score || !match.opponent || !match.date) {
+        
+        if (!match.section_id || !match.score || !match.team_id || !match.date) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
 
