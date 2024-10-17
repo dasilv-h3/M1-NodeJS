@@ -1,8 +1,9 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import matchRoutes from './routes/matchRoutes.js';
 import newRoutes from './routes/newRoutes.js';
 import sponsorRoutes from './routes/sponsorRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import clubRoutes from './routes/clubRoutes.js';
 const app = express();
 
 const port = 5000;
@@ -18,3 +19,4 @@ app.use('/api/matches', matchRoutes);
 app.use('/api/news', newRoutes);
 app.use('/api/sponsors', sponsorRoutes);
 app.use('/api/users', authRoutes);
+app.use('/api/club', clubRoutes);
