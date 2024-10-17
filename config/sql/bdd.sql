@@ -25,8 +25,6 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS authorizations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
     can_create BOOLEAN DEFAULT FALSE,
     can_edit BOOLEAN DEFAULT FALSE,
     can_delete BOOLEAN DEFAULT FALSE,
@@ -178,9 +176,7 @@ VALUES
 ('Nike', 'https://www.nike.com/fr/', 1),
 ('Amazon', 'https://www.amazon.fr/', 1),
 ('Tesla', 'https://www.tesla.com/fr_fr', 1);
-('Nike', 'https://www.nike.com/fr/', 1),
-('Amazon', 'https://www.amazon.fr/', 1),
-('Tesla', 'https://www.tesla.com/fr_fr', 1);
+
 
 -- INSERT MATCHES
 INSERT INTO matches (section_id, team_id, score, date)

@@ -7,17 +7,18 @@ import {
     modifySponsors,
     removeSponsors
 } from '../controllers/sponsorController.js';
+import { authenticateToken, someProtectedRoute } from '../middleware/authMiddleware.js';
 // import authMiddleware from '../middlewares/authMiddleware.js'; // Assurez-vous d'avoir ce middleware pour la protection des routes
 
 const router = Router();
 
 // Routes publiques
-router.get('/', fetchAllSponsors);
-router.get('/:id', fetchSponsorsById);
+router.get('/',  authenticateToken, someProtectedRoute, fetchAllSponsors);
+router.get('/:id',  authenticateToken, someProtectedRoute, fetchSponsorsById);
 
 // Routes protégées (par exemple, création, modification, suppression de matchs)
-router.post('/', addSponsors);
-router.put('/:id', modifySponsors);
-router.delete('/:id', removeSponsors); // Seuls les admins peuvent supprimer
+router.post('/',  authenticateToken, someProtectedRoute, addSponsors);
+router.put('/:id',  authenticateToken, someProtectedRoute, modifySponsors);
+router.delete('/:id',  authenticateToken, someProtectedRoute, removeSponsors); // Seuls les admins peuvent supprimer
 
 export default router;
