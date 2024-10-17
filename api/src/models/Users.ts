@@ -4,9 +4,10 @@ type Users = {
     password: string,
     first_name: string,
     last_name: string,
-    role: 'admin' | 'editor',
+    role_id: number,
     created_at: Date,
-    active: boolean 
+    active: boolean,
+    permission: number 
 };
 
 export default Users;

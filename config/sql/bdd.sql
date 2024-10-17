@@ -175,12 +175,10 @@ VALUES
 -- INSERT SPONSORS
 INSERT INTO sponsors (logo, url)
 VALUES 
-('Nike', 'https://www.nike.com/fr/'),
-('Amazon', 'https://www.amazon.fr/'),
-('Tesla', 'https://www.tesla.com/fr_fr'),
-('Nike', 'https://www.nike.com/fr/'),
-('Amazon', 'https://www.amazon.fr/'),
-('Tesla', 'https://www.tesla.com/fr_fr');
+('Nike', 'https://www.nike.com/fr/', 1),
+('Amazon', 'https://www.amazon.fr/', 1),
+('Tesla', 'https://www.tesla.com/fr_fr', 1);
+
 
 -- INSERT MATCHES
 INSERT INTO matches (section_id, team_id, score, date)

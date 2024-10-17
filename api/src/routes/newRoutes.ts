@@ -8,6 +8,7 @@ import {
     removeNew
 } from '../controllers/newController.js';
 import multer from 'multer';
+import { authenticateToken, someProtectedRoute } from '../middleware/authMiddleware.js';
 // import authMiddleware from '../middlewares/authMiddleware.js'; // Assurez-vous d'avoir ce middleware pour la protection des routes
 
 const router = Router();
@@ -17,12 +18,12 @@ const upload = multer({
 })
 
 // Routes publiques
-router.get('/', fetchAllNews);
-router.get('/:id', fetchNewsById);
+router.get('/',  authenticateToken, someProtectedRoute, fetchAllNews);
+router.get('/:id',  authenticateToken, someProtectedRoute, fetchNewsById);
 
 // Routes protégées (par exemple, création, modification, suppression de matchs)
-router.post('/', upload.any(), addNew);
-router.put('/:id', upload.any(), modifyNew);
+router.post('/', addNew);
+router.put('/:id', modifyNew);
 router.delete('/:id', removeNew); // Seuls les admins peuvent supprimer
 
 export default router;
