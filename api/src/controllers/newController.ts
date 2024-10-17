@@ -8,6 +8,7 @@ import {
     deleteNew
 } from '../services/newsServices.js';
 import News from '../models/News.js';
+import fs from 'node:fs/promises';
 
 export const fetchAllNews = async (req: Request, res: Response) => {
     try {
@@ -45,9 +46,16 @@ export const addNew = async (req: Request, res: Response) => {
     try {
         const news: News = req.body;
 
-        if (!news.title || !news.resume || !news.description || !news.image || news.created_at || news.edit_at) {
+        if (!news.title || !news.resume || !news.description || req.files?.length == 0 || news.created_at || news.edit_at) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
+
+        const img = (req.files as Express.Multer.File[])[0];
+        const fileName = img.filename + '.' + img.mimetype.split('/')[1];
+        
+        news.image = fileName;
+
+        await fs.rename(img.path, `${img.destination}/${fileName}`)
 
         const insertId = await createNews(news);
         res.status(201).json({ insertId, ...news });
@@ -66,6 +74,15 @@ export const modifyNew = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Invalid New ID' });
         }
 
+        if (req.files && (req.files as Express.Multer.File[]).length > 0) {
+            const img = (req.files as Express.Multer.File[])[0];
+            const fileName = img.filename + '.' + img.mimetype.split('/')[1];
+
+            await fs.rename(img.path, `${img.destination}/${fileName}`);
+
+            newsUpdates.image = fileName;
+        }
+        
         const success = await updateNews(id, newsUpdates);
         if (!success) {
             return res.status(404).json({ message: 'New not found or no changes made' });

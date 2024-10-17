@@ -22,11 +22,11 @@ export const createNews = async (news: News): Promise<number> => {
         image, 
         created_at = new Date(), // Date actuelle par défaut si non fournie
         edit_at = new Date(),
-        club_id
+        team_id
     } = news;
     const [result] = await pool.execute(
-        'INSERT INTO news (title, resume, description, image, created_at, edit_at, club_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [title, resume, description, image, created_at, edit_at,club_id]
+        'INSERT INTO news (title, resume, description, image, created_at, edit_at, team_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [title, resume, description, image, created_at, edit_at,team_id]
     );
     const insertResult = result as mysql.ResultSetHeader;
     return insertResult.insertId;

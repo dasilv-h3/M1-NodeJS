@@ -25,8 +25,6 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS authorizations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
     can_create BOOLEAN DEFAULT FALSE,
     can_edit BOOLEAN DEFAULT FALSE,
     can_delete BOOLEAN DEFAULT FALSE,
@@ -90,17 +88,15 @@ CREATE TABLE IF NOT EXISTS news (
     image VARCHAR(255),
     created_at DATE,
     edit_at TIMESTAMP,
-    club_id INT,
-    FOREIGN KEY (club_id) REFERENCES club(id) ON DELETE SET NULL
+    team_id INT,
+    FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE SET NULL
 );
 
 -- Création de la table sponsors
 CREATE TABLE IF NOT EXISTS sponsors (
     id INT AUTO_INCREMENT PRIMARY KEY,
     logo VARCHAR(255),
-    url LONGTEXT,
-    club_id INT,
-    FOREIGN KEY (club_id) REFERENCES club(id) ON DELETE SET NULL
+    url LONGTEXT
 );
 
 -- Création de la table matches
@@ -151,6 +147,10 @@ VALUES
 -- INSERT TEAMS
 INSERT INTO teams (name, section_id)
 VALUES 
+('Notre club', 1),
+('Notre club', 2),
+('Notre club', 3),
+('Notre club', 4),
 ('Paris FC', 1),
 ('Paris FC', 2),
 ('Paris FC', 3),
@@ -173,14 +173,14 @@ VALUES
 ('Girondin de Bordeaux', 4);
 
 -- INSERT SPONSORS
-INSERT INTO sponsors (logo, url, club_id)
+INSERT INTO sponsors (logo, url)
 VALUES 
-('Nike', 'https://www.nike.com/fr/', 1),
-('Amazon', 'https://www.amazon.fr/', 1),
-('Tesla', 'https://www.tesla.com/fr_fr', 1);
-('Nike', 'https://www.nike.com/fr/', 1),
-('Amazon', 'https://www.amazon.fr/', 1),
-('Tesla', 'https://www.tesla.com/fr_fr', 1);
+('Nike', 'https://www.nike.com/fr/'),
+('Amazon', 'https://www.amazon.fr/'),
+('Tesla', 'https://www.tesla.com/fr_fr'),
+('Nike', 'https://www.nike.com/fr/'),
+('Amazon', 'https://www.amazon.fr/'),
+('Tesla', 'https://www.tesla.com/fr_fr');
 
 -- INSERT MATCHES
 INSERT INTO matches (section_id, team_id, score, date)

@@ -25,9 +25,9 @@ export const createSponsors = async (sponso: Sponsors): Promise<number> => {
 };
 
 export const updateSponsors = async (id: number, sponso: Partial<Sponsors>): Promise<boolean> => {
-    const fields = [];
+    const fields: string[] = [];
     const values: any[] = [];
-    
+
     for (const key in sponso) {
         if (sponso[key as keyof Sponsors] !== undefined) {
             fields.push(`${key} = ?`);
@@ -39,13 +39,17 @@ export const updateSponsors = async (id: number, sponso: Partial<Sponsors>): Pro
 
     values.push(id);
 
-    const [result] = await pool.execute(
-        `UPDATE sponsors SET ${fields.join(', ')} WHERE id = ?`,
-        values
-    );
-
-    const updateResult = result as mysql.ResultSetHeader;
-    return updateResult.affectedRows > 0;
+    try {
+        const [result] = await pool.execute(
+            `UPDATE sponsors SET ${fields.join(', ')} WHERE id = ?`,
+            values
+        );
+        const updateResult = result as mysql.ResultSetHeader;
+        return updateResult.affectedRows > 0;
+    } catch (error) {
+        console.error('Error updating sponsors:', error);
+        throw new Error('Failed to update sponsors');
+    }
 };
 
 export const deleteSponsors = async (id: number): Promise<boolean> => {

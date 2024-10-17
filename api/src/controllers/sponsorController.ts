@@ -8,6 +8,7 @@ import {
     deleteSponsors
 } from '../services/sponsorsServices.js';
 import Sponsors from '../models/Sponsors.js';
+import fs from 'node:fs/promises';
 
 export const fetchAllSponsors = async (req: Request, res: Response) => {
     try {
@@ -31,7 +32,7 @@ export const fetchSponsorsById = async (req: Request, res: Response) => {
 
         const sponso = await getSponsorsById(id);
         if (!sponso) {
-            return res.status(404).json({ message: 'New not found' });
+            return res.status(404).json({ message: 'Sponsor not found' });
         }
 
         res.status(200).json(sponso);
@@ -45,9 +46,16 @@ export const addSponsors = async (req: Request, res: Response) => {
     try {
         const sponsos: Sponsors = req.body;
 
-        if (!sponsos.logo || !sponsos.url) {
+        if (req.files?.length == 0 || !sponsos.url) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
+
+        const img = (req.files as Express.Multer.File[])[0];
+        const fileName = img.filename + '.' + img.mimetype.split('/')[1];
+        
+        sponsos.logo = fileName;
+
+        await fs.rename(img.path, `${img.destination}/${fileName}`)
 
         const insertId = await createSponsors(sponsos);
         res.status(201).json({ insertId, ...sponsos });
@@ -64,6 +72,15 @@ export const modifySponsors = async (req: Request, res: Response) => {
 
         if (isNaN(id)) {
             return res.status(400).json({ message: 'Invalid New ID' });
+        }
+
+        if (req.files && (req.files as Express.Multer.File[]).length > 0) {
+            const img = (req.files as Express.Multer.File[])[0];
+            const fileName = img.filename + '.' + img.mimetype.split('/')[1];
+
+            await fs.rename(img.path, `${img.destination}/${fileName}`);
+
+            sponsorsUpdates.logo = fileName;
         }
 
         const success = await updateSponsors(id, sponsorsUpdates);
