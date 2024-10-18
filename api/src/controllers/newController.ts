@@ -46,7 +46,7 @@ export const addNew = async (req: Request, res: Response) => {
     try {
         const news: News = req.body;
 
-        if (!news.title || !news.resume || !news.description || req.files?.length == 0 || news.created_at || news.edit_at) {
+        if (!news.title || !news.resume || !news.description || req.files?.length == 0 || !news.team_id) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
 

@@ -3,13 +3,13 @@ import {
     fetchClub,
     modifyClub,
 } from '../controllers/clubController.js';
-import { isActive } from '../middleware/authMiddleware.js';
+import { authenticateToken, isActiveId, isEditor } from '../middleware/authMiddleware.js';
 
 const router = Router();
 
-router.get('/', isActive, fetchClub);
+router.get('/', fetchClub);
 
-router.put('/:id', isActive, modifyClub);
+router.put('/:id', authenticateToken, isActiveId, isEditor, modifyClub);
 
 
 export default router;

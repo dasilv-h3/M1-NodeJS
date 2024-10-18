@@ -7,7 +7,7 @@ import {
     removeNew
 } from '../controllers/newController.js';
 import multer from 'multer';
-import { authenticateToken, isActive, isAdmin, isEditor, someProtectedRoute } from '../middleware/authMiddleware.js';
+import { authenticateToken, isActiveId, isAdmin, isEditor } from '../middleware/authMiddleware.js';
 
 const router = Router();
 
@@ -16,12 +16,12 @@ const upload = multer({
 })
 
 // Routes publiques
-router.get('/', authenticateToken, isActive, fetchAllNews);
-router.get('/:id', authenticateToken, isActive, fetchNewsById);
+router.get('/', authenticateToken, isActiveId, fetchAllNews);
+router.get('/:id', authenticateToken, isActiveId, fetchNewsById);
 
 // Routes protégées (par exemple, création, modification, suppression de matchs)
-router.post('/', authenticateToken, isActive, isEditor, addNew);
-router.put('/:id', authenticateToken, isActive, isEditor, modifyNew);
-router.delete('/:id', authenticateToken, isActive, isAdmin, removeNew); // Seuls les admins peuvent supprimer
+router.post('/', authenticateToken, isActiveId, isEditor, upload.any(), addNew);
+router.put('/:id', authenticateToken, isActiveId, isEditor, modifyNew);
+router.delete('/:id', authenticateToken, isActiveId, isAdmin, removeNew); // Seuls les admins peuvent supprimer
 
 export default router;

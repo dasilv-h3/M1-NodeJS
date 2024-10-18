@@ -161,3 +161,9 @@ export const getUserById = async (id: number): Promise<Users | null> => {
   const matches = rows as Users[];
   return matches.length > 0 ? matches[0] : null;
 };
+
+export const getUserByEmail = async (email: string) => {
+  const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+  const matches = rows as Users[];
+  return matches.length > 0 ? matches[0] : null;
+};

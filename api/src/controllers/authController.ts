@@ -1,30 +1,34 @@
 import argon2 from 'argon2';
 import express, { Request, Response } from 'express';
 import Users from '../models/Users.js'; 
-import { CreateAUser, findUsersLogin, getAllUsers, removeUser, updateUser } from '../services/authServices.js';
+import { CreateAUser, findUsersLogin, getAllUsers, getUserByEmail, removeUser, updateUser } from '../services/authServices.js';
 
 const router = express.Router();
 
 // Route de connexion
 export const loginUser = async (req: Request, res: Response) => {
+	
   try {
-      // Extraction des données de la requête
       const { email, password } = req.body;
 
-      // Vérification des champs requis
       if (!email || !password) {
           return res.status(400).json({ message: 'Email and password are required' });
       }
 
-      // Appel à la fonction findUsersLogin pour authentifier l'utilisateur
+      const existingUser = await getUserByEmail(email);
+
+      if (!existingUser) {
+          return res.status(401).json({ message: 'Invalid email or password' });
+      }
+
       const result = await findUsersLogin(email, password);
 
       if (!result) {
-          return res.status(401).json({ message: 'Invalid email or password' }); // Connexion refusée
+          return res.status(401).json({ message: 'Invalid email or password' });
       }
 
       // Si la connexion réussit, renvoyer l'utilisateur et le token
-      res.status(200).json({
+	res.status(200).json({
           message: 'Login successful',
           user: {
               id: result.user.id,

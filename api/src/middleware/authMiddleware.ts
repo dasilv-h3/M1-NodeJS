@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import Users from '../models/Users.js'; // Assurez-vous d'importer correctement
-import { getUserById } from '../services/authServices.js';
+import { getUserByEmail, getUserById } from '../services/authServices.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || '478exhZT';
 
@@ -34,10 +34,27 @@ export const someProtectedRoute = (req: Request, res: Response) => {
     res.status(200).json({ message: 'You have access to this protected route', user: req.user });
 };
 
-export const isActive = async (req: Request, res: Response, next: NextFunction) => {
+export const isActiveId = async (req: Request, res: Response, next: NextFunction) => {
     const user = await getUserById(req.user?.id as number);
-    if (user?.active) {
-        next();
+    console.log("IS ACTIVE ID", user);
+    
+    if (user) {
+        if(user.active) {
+            next();
+        }
+    } else {
+        return res.status(401).json({ message: 'Access denied: Your account is not active !' });
+    }
+};
+
+export const isActiveEmail = async (req: Request, res: Response, next: NextFunction) => {
+    const user = await getUserByEmail(req.body.email);
+    console.log(user);
+    
+    if (user) {
+        if(user.active) {
+            next();
+        }
     } else {
         return res.status(401).json({ message: 'Access denied: Your account is not active !' });
     }
@@ -45,6 +62,8 @@ export const isActive = async (req: Request, res: Response, next: NextFunction) 
 
 export const isEditor = async (req: Request, res: Response, next: NextFunction) => {
     const user = await getUserById(req.user?.id as number);
+    console.log("IS EDITOR", user);
+        
     if (user) {
         if (user.role_id == 2) {
             next();
