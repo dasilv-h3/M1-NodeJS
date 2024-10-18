@@ -8,6 +8,16 @@ export const getAllMatches = async (): Promise<Match[]> => {
     return rows as Match[];
 };
 
+export const getPreviousMatches = async (): Promise<Match[]> => {
+    const [rows] = await pool.query('SELECT * FROM matches WHERE date <= NOW() ORDER BY date DESC LIMIT 3');
+    return rows as Match[];
+};
+
+export const getNextMatches = async (): Promise<Match[]> => {
+    const [rows] = await pool.query('SELECT * FROM matches WHERE date >= NOW() ORDER BY date');
+    return rows as Match[];
+};
+
 export const getMatchById = async (id: number): Promise<Match | null> => {
     const [rows] = await pool.query('SELECT * FROM matches WHERE id = ?', [id]);
     const matches = rows as Match[];

@@ -1,7 +1,7 @@
-// authMiddleware.ts
 import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import Users from '../models/Users.js'; // Assurez-vous d'importer correctement
+import { getUserById } from '../services/authServices.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || '478exhZT';
 
@@ -9,7 +9,6 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // 'Bearer TOKEN'
 
-    console.log("token:", token);
     
     if (!token) {
         return res.status(401).json({ message: 'Access denied: No token provided' });
@@ -34,3 +33,42 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
 export const someProtectedRoute = (req: Request, res: Response) => {
     res.status(200).json({ message: 'You have access to this protected route', user: req.user });
 };
+
+export const isActive = async (req: Request, res: Response, next: NextFunction) => {
+    const user = await getUserById(req.user?.id as number);
+    if (user?.active) {
+        next();
+    } else {
+        return res.status(401).json({ message: 'Access denied: Your account is not active !' });
+    }
+};
+
+export const isEditor = async (req: Request, res: Response, next: NextFunction) => {
+    const user = await getUserById(req.user?.id as number);
+    if (user) {
+        if (user.role_id == 2) {
+            next();
+        } else {
+            return res.status(401).json({ message: 'Access denied: Your account is not editor !' });
+        }
+    } else {
+        return res.status(404).json({ message: 'Not found: User not found !' });
+    }
+    
+};
+
+export const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    const user = await getUserById(req.user?.id as number);
+    if (user) {
+        if (user.role_id == 1) {
+            next();
+        } else {
+            return res.status(401).json({ message: 'Access denied: Your account is not admin !' });
+        }
+    } else {
+        return res.status(404).json({ message: 'Not found: User not found !' });
+    }
+    
+};
+
+

@@ -17,6 +17,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
+      - db_data:/var/lib/mysql
       - ./config/sql/bdd.sql:/docker-entrypoint-initdb.d/bdd.sql
     ports:
       - "3306:3306"
@@ -30,3 +31,6 @@ services:
       - "8080:80"
     depends_on:
       - db
+
+volumes:
+  db_data:

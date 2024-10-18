@@ -142,7 +142,7 @@ export const findUsersLogin = async (email: string, password: string): Promise<{
 
       // 3. Générer un token JWT
       const token = jwt.sign(
-          { id: user.id, email: user.email, role_id: user.role_id }, // Inclure les informations pertinentes dans le token
+          { id: user.id, email: user.email, role_id: user.role_id, active: user.active }, // Inclure les informations pertinentes dans le token
           process.env.JWT_SECRET as string, // Votre clé secrète JWT qui est définie dans le .env
           { expiresIn: '1h' } // Le token expirera après 1 heure
       );
@@ -154,4 +154,10 @@ export const findUsersLogin = async (email: string, password: string): Promise<{
       console.error('Error during user login:', error);
       throw new Error('Error while logging in user');
   }
+};
+
+export const getUserById = async (id: number): Promise<Users | null> => {
+  const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
+  const matches = rows as Users[];
+  return matches.length > 0 ? matches[0] : null;
 };

@@ -1,4 +1,3 @@
-// src/routes/matchRoutes.ts
 import { Router } from 'express';
 import {
     fetchAllSponsors,
@@ -7,9 +6,8 @@ import {
     modifySponsors,
     removeSponsors
 } from '../controllers/sponsorController.js';
-import { authenticateToken, someProtectedRoute } from '../middleware/authMiddleware.js';
+import { authenticateToken, isActive, isAdmin, isEditor, someProtectedRoute } from '../middleware/authMiddleware.js';
 import multer from 'multer';
-// import authMiddleware from '../middlewares/authMiddleware.js'; // Assurez-vous d'avoir ce middleware pour la protection des routes
 
 const router = Router();
 
@@ -18,12 +16,12 @@ const upload = multer({
 })
 
 // Routes publiques
-router.get('/',  authenticateToken, someProtectedRoute, fetchAllSponsors);
-router.get('/:id',  authenticateToken, someProtectedRoute, fetchSponsorsById);
+router.get('/',  authenticateToken, isActive, fetchAllSponsors);
+router.get('/:id',  authenticateToken, isActive, fetchSponsorsById);
 
 // Routes protégées (par exemple, création, modification, suppression de matchs)
-router.post('/',  authenticateToken, someProtectedRoute, addSponsors);
-router.put('/:id',  authenticateToken, someProtectedRoute, modifySponsors);
-router.delete('/:id',  authenticateToken, someProtectedRoute, removeSponsors); // Seuls les admins peuvent supprimer
+router.post('/',  authenticateToken, isActive, isEditor, addSponsors);
+router.put('/:id',  authenticateToken, isActive, isEditor, modifySponsors);
+router.delete('/:id',  authenticateToken, isActive, isAdmin, removeSponsors); // Seuls les admins peuvent supprimer
 
 export default router;
