@@ -8,13 +8,13 @@ import {
     logoutUser,
     fetchAllUsers
 } from '../controllers/authController.js';
-import { authenticateToken, someProtectedRoute } from '../middleware/authMiddleware.js';
+import { authenticateToken, isAdmin, someProtectedRoute } from '../middleware/authMiddleware.js';
 // import authMiddleware from '../middlewares/authMiddleware.js'; // Assurez-vous d'avoir ce middleware pour la protection des routes
 
 const router = Router();
 
 // Routes publiques
-router.get('/', fetchAllUsers);
+router.get('/', authenticateToken, isAdmin, someProtectedRoute, fetchAllUsers);
 
 
 // // Routes protégées (par exemple, création, modification, suppression de matchs)
