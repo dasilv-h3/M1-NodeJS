@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 const Menu = () => {
-    const [menu, setMenu] = useState({
+    const [menu] = useState({
         'home': 'accueil',
         'smj': 'section masculine junior',
         'sms': 'section masculine senior',

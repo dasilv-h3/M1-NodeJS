@@ -1,7 +1,6 @@
 const Navbar = () => {
     return(
-        <div>
-            
+        <div className="container bg-emerald-500 h-2.5">
         </div>
     )
 }
