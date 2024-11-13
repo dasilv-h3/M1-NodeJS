@@ -1,12 +1,12 @@
 import './App.css'
 import Layout from './components/Layout'
-import Home from './pages/Home'
+import Rooter from './components/Router'
 
 function App() {
 
   return (
     <Layout >
-      <Home />
+      <Rooter />
     </Layout>
   )
 }

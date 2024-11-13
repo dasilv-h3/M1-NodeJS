@@ -63,3 +63,8 @@ export const deleteMatch = async (id: number): Promise<boolean> => {
     const deleteResult = result as mysql.ResultSetHeader;
     return deleteResult.affectedRows > 0;
 };
+
+export const getAllMatchesMasculinJunior = async (): Promise<Match[]> => {
+    const [rows] = await pool.query('SELECT * FROM matches WHERE section_id = 1');
+    return rows as Match[];
+};

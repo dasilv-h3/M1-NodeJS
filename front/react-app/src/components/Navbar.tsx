@@ -5,18 +5,18 @@ const Navbar = () => {
     const [menu] = useState({
         'smj':'Masculin Pro',
         'sfj':'Feminin Pro',
-        'actualites': 'actualités',
-        'contact': 'contact',
-        'administration': 'administration'
+        'actualites': 'Actualités',
+        'contact': 'Contact',
+        'administration': 'Administration'
     });
 
     const [submenu1] = useState( {
-        'smj': 'section masculine junior',
-        'sms': 'section masculine senior',
+        'smj': 'Section masculine junior',
+        'sms': 'Section masculine senior',
     });
     const [submenu2] = useState({
-        'sfj': 'section féminine junior',
-        'sfs': 'section féminine senior',
+        'sfj': 'Section féminine junior',
+        'sfs': 'Section féminine senior',
     });
 
     const hasSubmenu = (key: string) => {

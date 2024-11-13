@@ -7,13 +7,15 @@ const router = express.Router();
 
 // Route de connexion
 export const loginUser = async (req: Request, res: Response) => {
-	
-  try {
-      const { email, password } = req.body;
+	const { email, password } = req.body;
+    console.log('co:', req.body);
+    
 
-      if (!email || !password) {
-          return res.status(400).json({ message: 'Email and password are required' });
-      }
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Email and password are required' });
+    }
+  try {
+      
 
       const existingUser = await getUserByEmail(email);
 
