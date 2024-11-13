@@ -28,7 +28,7 @@ const Masculinprojunior = () => {
 
     return (
         <div className="">
-            <h2 className="text-black">Matchs Précédents</h2>
+            <h2 className="text-black">Masculins Juniors</h2>
             <div>
                 <ul>
                     {masculinjuior.map((mj) => <li key={mj.section_id}>{mj.score}</li>)}
