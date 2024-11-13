@@ -63,3 +63,8 @@ export const deleteMatch = async (id: number): Promise<boolean> => {
     const deleteResult = result as mysql.ResultSetHeader;
     return deleteResult.affectedRows > 0;
 };
+
+export const getAllMatchesMasculinJunior = async (): Promise<Match[]> => {
+    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.team_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 1 AND m.team_id= 1;');
+    return rows as Match[];
+};
