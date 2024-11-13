@@ -40,7 +40,7 @@ const Navbar = () => {
     // };
 
     return (
-        <nav className="w-screen h-24 flex justify-between items-center bg-blue-950 md:px-6 text-white">
+        <nav className="w-full h-24 flex justify-between items-center bg-blue-950 md:px-6 text-white">
             <div className="flex-1 flex justify-center md:flex-none">
                 <a href="/">
                     <img className="logo" src={logo} alt="Logo" />
