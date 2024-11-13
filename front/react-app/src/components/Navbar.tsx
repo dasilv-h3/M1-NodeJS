@@ -18,14 +18,14 @@ const Navbar = () => {
     //     'administration': 'Administration'
     // });
 
-    const [submenu1] = useState( {
-        'smj': 'section masculine junior',
-        'sms': 'section masculine senior',
-    });
-    const [submenu2] = useState({
-        'sfj': 'section féminine junior',
-        'sfs': 'section féminine senior',
-    });
+    // const [submenu1] = useState( {
+    //     'smj': 'section masculine junior',
+    //     'sms': 'section masculine senior',
+    // });
+    // const [submenu2] = useState({
+    //     'sfj': 'section féminine junior',
+    //     'sfs': 'section féminine senior',
+    // });
 
     // const hasSubmenu = (key: string) => {
     //     return key === 'smj' || key === 'sfj';

@@ -1,10 +1,52 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
+import AdminDashboard from "../pages/AdminDashboard/AdminDashBoard";
+import EditClub from "../pages/AdminDashboard/Club/EditClub";
+import Masculinprojunior from "../pages/Masculinprojunior";
 
 const router = createBrowserRouter([
     {
 		path: "/",
 		element: <Home />,
+		// errorElement: <NotFoundPage />,
+	},
+    {
+		path: "/admin",
+		element: <AdminDashboard />,
+		// errorElement: <NotFoundPage />,
+	},
+	{
+		path: "/smj",
+		element: <Masculinprojunior />,
+	},
+    {
+		path: "/admin/edit-club",
+		element: <EditClub />,
+		// errorElement: <NotFoundPage />,
+	},
+    {
+		path: "/admin/presentation",
+		// element: < />,
+		// errorElement: <NotFoundPage />,
+	},
+    {
+		path: "/admin/actualites",
+		// element: < />,
+		// errorElement: <NotFoundPage />,
+	},
+    {
+		path: "/admin/partenaires",
+		// element: < />,
+		// errorElement: <NotFoundPage />,
+	},
+    {
+		path: "/admin/matches",
+		// element: < />,
+		// errorElement: <NotFoundPage />,
+	},
+    {
+		path: "/admin/activate-account",
+		// element: < />,
 		// errorElement: <NotFoundPage />,
 	},
 ])
