@@ -1,5 +1,5 @@
 import { useState } from "react";
-import logo from "../assets/logo3.png";
+import logo from "../assets/img/logo3.png";
 const Navbar = () => {
 
     const [menu] = useState({
@@ -56,10 +56,10 @@ const Navbar = () => {
                             )}
                         </li>
                     ))}
+                    <li className="container-connexion">
+                        <a className="text-white" href="/connexion">Connexion</a>
+                    </li>
                 </ul>
-            </div>
-            <div>
-
             </div>
         </div>
     );
