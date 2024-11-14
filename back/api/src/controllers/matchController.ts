@@ -7,7 +7,10 @@ import {
     deleteMatch,
     getPreviousMatches,
     getNextMatches,
-    getAllMatchesMasculinJunior
+    getAllMatchesMasculinJunior,
+    getAllMatchesMasculinSenior,
+    getAllMatchesFemininJunior,
+    getAllMatchesFemininSenior
 } from '../services/matchServices.js';
 import Match from '../models/Matches.js';
 
@@ -128,7 +131,51 @@ export const removeMatch = async (req: Request, res: Response) => {
 
 export const fetchAllMatchesMasculinJunior = async (req: Request, res: Response) => {
     const matches = await getAllMatchesMasculinJunior();
-    console.log('matches masculin junior:', matches);
+    try {
+       
+        
+        if (matches.length === 0) {
+            return res.status(404).json({ message: 'No matches found' });
+        }
+        res.status(200).json(matches);
+    } catch (error) {
+        console.error('Error fetching matches:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+export const fetchAllMatchesMasculinSenior = async (req: Request, res: Response) => {
+    const matches = await getAllMatchesMasculinSenior();
+    try {
+       
+        
+        if (matches.length === 0) {
+            return res.status(404).json({ message: 'No matches found' });
+        }
+        res.status(200).json(matches);
+    } catch (error) {
+        console.error('Error fetching matches:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+export const fetchAllMatchesFemininJunior = async (req: Request, res: Response) => {
+    const matches = await getAllMatchesFemininJunior();
+    try {
+       
+        
+        if (matches.length === 0) {
+            return res.status(404).json({ message: 'No matches found' });
+        }
+        res.status(200).json(matches);
+    } catch (error) {
+        console.error('Error fetching matches:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+export const fetchAllMatchesFemininSenior = async (req: Request, res: Response) => {
+    const matches = await getAllMatchesFemininSenior();
     try {
        
         
