@@ -20,8 +20,8 @@ router.get('/',  authenticateToken, isActiveId, fetchAllSponsors);
 router.get('/:id',  authenticateToken, isActiveId, fetchSponsorsById);
 
 // Routes protégées (par exemple, création, modification, suppression de matchs)
-router.post('/',  authenticateToken, isActiveId, isEditor, addSponsors);
-router.put('/:id',  authenticateToken, isActiveId, isEditor, modifySponsors);
+router.post('/',  authenticateToken, isActiveId, isEditor, upload.single('logo'), addSponsors);
+router.put('/:id',  authenticateToken, isActiveId, isEditor, upload.single('logo'), modifySponsors);
 router.delete('/:id',  authenticateToken, isActiveId, isAdmin, removeSponsors); // Seuls les admins peuvent supprimer
 
 export default router;
