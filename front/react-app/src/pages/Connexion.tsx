@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/connexion.css";
 import { useAuth } from "../context/AuthContext";
+import Axios from "../services/Axios";
 
 const Connexion: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -38,20 +39,14 @@ const Connexion: React.FC = () => {
 
   const onButtonClick = async () => {
     if (!validateForm()) return;
-
+  
     try {
-      const response = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
+      const response = await Axios.post("users/login", { email, password });
+      const data = response.data;
+  
+      if (response.status === 200) {
         setToken(data.token); // Stocke le token dans le contexte
+        localStorage.setItem("token", data.token);
         navigate("/"); // Redirige vers la page d'accueil ou une autre page protégée
       } else {
         if (data.message === "Invalid email or password") {
