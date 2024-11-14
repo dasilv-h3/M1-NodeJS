@@ -1,5 +1,7 @@
 import { useState } from "react";
 import logo from "../assets/img/logo3.png";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
+
 const Navbar = () => {
 
     const [menu] = useState({
@@ -33,7 +35,7 @@ const Navbar = () => {
 
 
     return (
-        <div className="navbar bg-blue-950 h-24">
+        <div className="navbar bg-blue-950 text-white h-24">
             <div className="container-logo">
                 <a href="/"><img className="logo" src={logo} alt="Logo" /></a>
             </div>
@@ -57,7 +59,7 @@ const Navbar = () => {
                         </li>
                     ))}
                     <li className="container-connexion">
-                        <a className="text-white" href="/connexion">Connexion</a>
+                        <a className="text-white" href="/connexion">Se connecter</a> &nbsp; / &nbsp; <a className="text-white" href="/inscription">S'inscrire</a> &nbsp; <UserCircleIcon className="h-6"/>
                     </li>
                 </ul>
             </div>

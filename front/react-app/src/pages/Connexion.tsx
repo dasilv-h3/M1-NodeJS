@@ -1,79 +1,101 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../assets/css/connexion.css";
-import {
-  useNavigate,
-} from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-function Connexion() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+const Connexion: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
+
   const navigate = useNavigate();
+  const { setToken } = useAuth();
 
-  const onButtonClick = () => {
+  const validateForm = () => {
+    let valid = true;
     setEmailError("");
     setPasswordError("");
 
-    if ("" === email) {
-      setEmailError("Please enter your email");
-      return;
+    if (!email) {
+      setEmailError("Veuillez écrire votre email");
+      valid = false;
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      setEmailError("Veuillez écrire une adresse email valide");
+      valid = false;
     }
 
-    if ("" === password) {
-      setPasswordError("Please enter a password");
-      return;
-    }
-    if (password.length < 7) {
-      setPasswordError("password must be 8 character or longer");
-      return;
-    }
-
-    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-      setEmailError("please enter a vlid email address");
-      return;
+    if (!password) {
+      setPasswordError("Veuillez écrire votre mot de passe");
+      valid = false;
+    } else if (password.length < 8) {
+      setPasswordError("Le mot de passe doit comporter au moins 8 caractères");
+      valid = false;
     }
 
-    if (email) {
-        navigate("/");
-    } else {
-        navigate("/connexion");
+    return valid;
+  };
+
+  const onButtonClick = async () => {
+    if (!validateForm()) return;
+
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setToken(data.token); // Stocke le token dans le contexte
+        navigate("/"); // Redirige vers la page d'accueil ou une autre page protégée
+      } else {
+        if (data.message === "Invalid email or password") {
+          setPasswordError("Email ou mot de passe invalide");
+        } else {
+          console.error("Erreur de connexion:", data.message);
+        }
+      }
+    } catch (error) {
+      console.error("Erreur de requête:", error);
     }
-    //navigate("../Home")
   };
 
   return (
     <div className="login-box">
-      <h2>Se Connecter</h2>
+      <h2>Connexion à FrontKick FC</h2>
       <form>
         <div className="user-box">
           <input
+            type="email"
             value={email}
-            placeholder="Enter email address here"
+            placeholder="Email"
             onChange={(ev) => setEmail(ev.target.value)}
-            className={"user-box"}
           />
-
           <label className="errorLabel">{emailError}</label>
         </div>
         <div className="user-box">
           <input
+            type="password"
             value={password}
-            placeholder="Enter password here"
+            placeholder="Mot de passe"
             onChange={(ev) => setPassword(ev.target.value)}
-            className={"user-box"}
           />
           <label className="errorLabel">{passwordError}</label>
         </div>
         <input
           onClick={onButtonClick}
-          className={"inputButton"}
+          className="inputButton"
           type="button"
-          value={"Submit"}
+          value="Se connecter"
         />
       </form>
     </div>
   );
-}
+};
 
 export default Connexion;

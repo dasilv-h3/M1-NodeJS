@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Masculinprojunior from "../pages/Masculinprojunior";
 import Connexion from "../pages/Connexion";
-
+import Inscription from "../pages/Inscription"
 
 const Rooter = () => {
   return (
@@ -17,6 +17,7 @@ const Rooter = () => {
             <Route path="/contact" element={<Masculinprojunior />} />
             <Route path="/administration" element={<Masculinprojunior />} />
             <Route path="/connexion" element={<Connexion />} />
+            <Route path="/inscription" element={<Inscription />} />
         </Routes>
     </BrowserRouter>
   );

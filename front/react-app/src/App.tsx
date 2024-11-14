@@ -1,14 +1,18 @@
-import './App.css'
-import Layout from './components/Layout'
-import Rooter from './components/Router'
+import { RouterProvider } from "react-router-dom";
+import "./App.css";
+import router from "./routes/index";
+import { AuthProvider } from "./context/AuthContext";
+import Navbar from "./components/Navbar"
+import Footer from "./components/Footer"
 
 function App() {
-
   return (
-    <Layout >
-      <Rooter />
-    </Layout>
-  )
+    <AuthProvider>
+      <Navbar />
+      <RouterProvider router={router} />
+      <Footer />
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
