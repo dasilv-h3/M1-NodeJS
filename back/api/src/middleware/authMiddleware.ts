@@ -51,10 +51,8 @@ export const isActiveEmail = async (req: Request, res: Response, next: NextFunct
     const user = await getUserByEmail(req.body.email);
     console.log(user);
     
-    if (user) {
-        if(user.active) {
-            next();
-        }
+    if (user && user.active) {
+        next();
     } else {
         return res.status(401).json({ message: 'Access denied: Your account is not active !' });
     }

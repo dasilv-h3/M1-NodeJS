@@ -6,7 +6,11 @@ import {
     modifyMatch,
     removeMatch,
     fetchPreviousMatches,
-    fetchNextMatches
+    fetchNextMatches,
+    fetchAllMatchesMasculinJunior,
+    fetchAllMatchesMasculinSenior,
+    fetchAllMatchesFemininJunior,
+    fetchAllMatchesFemininSenior
 } from '../controllers/matchController.js';
 import { authenticateToken, isActiveId, isAdmin, isEditor} from '../middleware/authMiddleware.js';
 
@@ -14,6 +18,10 @@ const router = Router();
 
 // Routes publiques
 router.get('/', authenticateToken, isActiveId, fetchAllMatches);
+router.get('/masculinjunior', authenticateToken, isActiveId, fetchAllMatchesMasculinJunior);
+router.get('/masculinsenior', authenticateToken, isActiveId, fetchAllMatchesMasculinSenior);
+router.get('/femininjunior', authenticateToken, isActiveId, fetchAllMatchesFemininJunior);
+router.get('/femininsenior', authenticateToken, isActiveId, fetchAllMatchesFemininSenior);
 router.get('/previousMatches', authenticateToken, isActiveId, fetchPreviousMatches);
 router.get('/nextMatches', authenticateToken, isActiveId, fetchNextMatches);
 router.get('/:id', authenticateToken, isActiveId, fetchMatchById);

@@ -1,14 +1,7 @@
-#root {
-  max-width: 1280px;
-  /* margin: 0 auto;
-  padding: 2rem; */
-  text-align: center;
-}
-
 footer{
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
-  width: -webkit-fill-available;
+  /* width: -webkit-fill-available; */
 }
 
 footer div{
@@ -42,7 +35,6 @@ footer div{
   height: 5em;
   will-change: filter;
   transition: filter 300ms;
-  position: absolute;
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
@@ -127,6 +119,10 @@ footer div{
 
 .submenu-link:hover {
   background-color: #F3F4F6; /* gris clair */
+}
+
+.height {
+  height : calc(100% -6rem)
 }
 
 
