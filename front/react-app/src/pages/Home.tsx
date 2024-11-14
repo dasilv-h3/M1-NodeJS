@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import Presentation from "../assets/video/presentation.mp4";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 
 const Home = () => {
     return (
