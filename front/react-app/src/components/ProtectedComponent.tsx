@@ -3,13 +3,13 @@
 // const ProtectedComponent: React.FC = () => {
 //   const { token } = useAuth();
 
-// //   const fetchData = async () => {
-// //     const response = await fetch("http://localhost:3000/protected-route", {
-// //       method: "GET",
-// //       headers: {
-// //         Authorization: `Bearer ${token}`, // Ajout du token dans les headers
-// //       },
-// //     });
+//   const fetchData = async () => {
+//     const response = await fetch("http://localhost:3000/protected-route", {
+//       method: "GET",
+//       headers: {
+//         Authorization: `Bearer ${token}`, // Ajout du token dans les headers
+//       },
+//     });
 
 //     const data = await response.json();
 //     console.log(data);

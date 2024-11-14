@@ -56,7 +56,7 @@ const Navbar = () => {
                 <a href="">Se connecter</a>
                 <p> / </p>
                 <a href=""> S'inscrire</a>
-                <UserCircleIcon className="h-20"/>
+                <UserCircleIcon />
             </div>
         </nav>
         // <nav className="w-screen h-24 flex justify-center items-center bg-blue-950 sm:justify-between sm:px-5">
