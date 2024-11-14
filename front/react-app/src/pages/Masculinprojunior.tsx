@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "../services/Axios";
-import { MasculinJunior } from "../interfaces/MatchesIterfaces";
+import versus from "../assets/versus.png"
+import { Matches } from "../interfaces/MatchesIterfaces";
 
 const Masculinprojunior = () => {
-    const [masculinjuior, setMasculinJunior] = useState<MasculinJunior[]>([]);
+    const NOTRE_EQUIPE = "FrontKick FC";
+    const [masculinjuior, setMasculinJunior] = useState<Matches[]>([]);
 
     const masculin = async () => {
         try {
@@ -28,13 +30,61 @@ const Masculinprojunior = () => {
 
     return (
         <div className="">
-            <h2 className="text-black">Masculins Juniors</h2>
-            <div>
-                <ul>
-                    {masculinjuior.map((mj) => <li key={mj.section_id}>{mj.score}</li>)}
-                </ul>
-            </div>
-        </div>
+        <h2 className="text-black mb-4">Masculins Juniors</h2>
+      
+        {/* Matchs à venir */}
+   
+        <ul className=" mb-4">
+          {masculinjuior
+            .filter((mj) => new Date(mj.date).getTime() > Date.now())
+            .map((mj) => {
+              const dateObj = new Date(mj.date);
+              const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
+      
+              return (
+                <li className="flex gap-x-4 list-disc" key={`${mj.section_name}-${mj.date}`}>
+                  <div>
+                    <p>{NOTRE_EQUIPE}</p>
+                  </div>
+                  <div><img className="max-w-[3vh]" src={versus} alt="vs" /></div>
+                  <div>
+                    <p>{mj.team_name}</p>
+                  </div>
+                  <div>
+                    <p>{formattedDate}</p>
+                  </div>
+                </li>
+              );
+            })}
+        </ul>
+      
+        {/* Matchs Passés */}
+        <h3 className="text-gray-500 mb-4">Matchs Passés</h3>
+        <ul className="mb-4">
+          {masculinjuior
+            .filter((mj) => new Date(mj.date).getTime() <= Date.now())
+            .map((mj) => {
+              const dateObj = new Date(mj.date);
+              const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
+      
+              return (
+                <li className="flex gap-x-4 list-disc" key={`${mj.section_name}-${mj.date}`}>
+                  <div>
+                    <p>{NOTRE_EQUIPE}</p>
+                  </div>
+                  <div>{mj.score}</div>
+                  <div>
+                    <p>{mj.team_name}</p>
+                  </div>
+                  <div>
+                    <p>{formattedDate}</p>
+                  </div>
+                </li>
+              );
+            })}
+        </ul>
+      </div>
+      
     );
 };
 
