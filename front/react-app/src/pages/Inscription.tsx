@@ -8,18 +8,53 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import de useNavigate pour redirection
 import "../assets/css/inscription.css";
 
 const Inscription: React.FC = () => {
-  // Définition des états avec les types pour chaque champ
+  // Définition des états pour chaque champ
   const [name, setName] = useState<string>("");
   const [surname, setSurname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const navigate = useNavigate(); // Création de navigate pour la redirection
+
   const handleRegister = async () => {
-    // Ajoute ici la logique pour gérer l'inscription
+    try {
+      const response = await fetch("http://localhost:3000/api/users/signUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          first_name: name,
+          last_name: surname,
+        }),
+      });
+
+      if (!response.ok) {
+        // Affiche un message d'erreur si la requête échoue
+        const errorData = await response.json();
+        console.error("Erreur d'inscription :", errorData.message);
+        alert("Erreur lors de l'inscription : " + errorData.message);
+        return;
+      }
+
+      // Si l'inscription est réussie
+      const data = await response.json();
+      console.log("Inscription réussie :", data);
+      alert("Inscription réussie !");
+      
+      // Redirige vers la page de connexion
+      navigate('/connexion'); 
+
+    } catch (error) {
+      console.error("Erreur lors de l'inscription :", error);
+      alert("Erreur de connexion au serveur.");
+    }
   };
 
   return (
@@ -32,9 +67,10 @@ const Inscription: React.FC = () => {
           alignItems: "center",
         }}
       >
-
         <Typography className="text-white" variant="h5">S'inscrire</Typography>
-        <p className="text-white text-xs">Les champs suivis d'un <span className="text-red-500 text-xl align-middle">*</span> sont obligatoires.</p>
+        <p className="text-white text-xs">
+          Les champs suivis d'un <span className="text-red-500 text-xl align-middle">*</span> sont obligatoires.
+        </p>
         <Box sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} className="input-field">

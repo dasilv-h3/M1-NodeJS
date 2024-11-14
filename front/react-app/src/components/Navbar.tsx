@@ -1,5 +1,5 @@
 import { useState } from "react";
-import logo from "../assets/logo3.png";
+import logo from "../assets/img/logo3.png";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import MenuMobile from "./MenuMobile";
 import MenuDesktop from "./MenuDesktop";
@@ -56,6 +56,7 @@ const Navbar = () => {
                 <a href="">Se connecter</a>
                 <p> / </p>
                 <a href=""> S'inscrire</a>
+                <UserCircleIcon className="h-20"/>
             </div>
         </nav>
         // <nav className="w-screen h-24 flex justify-center items-center bg-blue-950 sm:justify-between sm:px-5">
