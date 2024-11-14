@@ -3,6 +3,9 @@ import Home from "../pages/Home";
 import AdminDashboard from "../pages/AdminDashboard/AdminDashBoard";
 import EditClub from "../pages/AdminDashboard/Club/EditClub";
 import Masculinprojunior from "../pages/Masculinprojunior";
+import ManageSponsors from "../pages/AdminDashboard/Sponsors/ManageSponsors";
+import AddSponsor from "../pages/AdminDashboard/Sponsors/AddSponsor";
+import EditSponsor from "../pages/AdminDashboard/Sponsors/EditSponsor";
 
 const router = createBrowserRouter([
     {
@@ -35,8 +38,18 @@ const router = createBrowserRouter([
 		// errorElement: <NotFoundPage />,
 	},
     {
-		path: "/admin/partenaires",
-		// element: < />,
+		path: "/admin/sponsors",
+		element: <ManageSponsors />,
+		// errorElement: <NotFoundPage />,
+	},
+    {
+		path: "/admin/sponsors/add-sponsor",
+		element: <AddSponsor />,
+		// errorElement: <NotFoundPage />,
+	},
+    {
+		path: "/admin/sponsors/edit-sponsor/:id",
+		element: <EditSponsor />,
 		// errorElement: <NotFoundPage />,
 	},
     {

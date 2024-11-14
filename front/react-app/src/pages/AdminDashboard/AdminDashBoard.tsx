@@ -20,7 +20,7 @@ const AdminDashboard = () => {
                     </Link>
                     
                     {/* Gestion des partenaires */}
-                    <Link to="/admin/manage-partners" className="bg-white shadow-md p-6 rounded-lg text-center hover:shadow-lg transition duration-200">
+                    <Link to="/admin/sponsors" className="bg-white shadow-md p-6 rounded-lg text-center hover:shadow-lg transition duration-200">
                         <h2 className="text-xl font-semibold mb-4">Gestion des partenaires</h2>
                         <p className="text-gray-700">Ajoutez, modifiez ou supprimez des partenaires.</p>
                     </Link>

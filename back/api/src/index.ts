@@ -5,6 +5,8 @@ import newRoutes from './routes/newRoutes.js';
 import sponsorRoutes from './routes/sponsorRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import clubRoutes from './routes/clubRoutes.js';
+import path from 'path';
+
 const app = express();
 const port = 5000;
 
@@ -26,3 +28,5 @@ app.use('/api/news', newRoutes);
 app.use('/api/sponsors', sponsorRoutes);
 app.use('/api/users', authRoutes);
 app.use('/api/club', clubRoutes);
+
+app.use('/uploads/sponsors', express.static(path.resolve('uploads/sponsors')));

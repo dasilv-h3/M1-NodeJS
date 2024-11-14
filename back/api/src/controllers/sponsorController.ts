@@ -46,16 +46,16 @@ export const addSponsors = async (req: Request, res: Response) => {
     try {
         const sponsos: Sponsors = req.body;
 
-        if (req.files?.length == 0 || !sponsos.url) {
+        if (!req.file || !sponsos.url) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
 
-        const img = (req.files as Express.Multer.File[])[0];
+        const img = req.file;
         const fileName = img.filename + '.' + img.mimetype.split('/')[1];
         
         sponsos.logo = fileName;
 
-        await fs.rename(img.path, `${img.destination}/${fileName}`)
+        await fs.rename(img.path, `${img.destination}/${fileName}`);
 
         const insertId = await createSponsors(sponsos);
         res.status(201).json({ insertId, ...sponsos });
@@ -74,8 +74,8 @@ export const modifySponsors = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Invalid New ID' });
         }
 
-        if (req.files && (req.files as Express.Multer.File[]).length > 0) {
-            const img = (req.files as Express.Multer.File[])[0];
+        if (req.file) {
+            const img = req.file;
             const fileName = img.filename + '.' + img.mimetype.split('/')[1];
 
             await fs.rename(img.path, `${img.destination}/${fileName}`);

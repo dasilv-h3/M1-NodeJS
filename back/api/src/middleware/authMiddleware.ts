@@ -63,7 +63,7 @@ export const isEditor = async (req: Request, res: Response, next: NextFunction) 
     console.log("IS EDITOR", user);
         
     if (user) {
-        if (user.role_id == 2) {
+        if (user.role_id == 2 || user.role_id == 1) {
             next();
         } else {
             return res.status(401).json({ message: 'Access denied: Your account is not editor !' });
