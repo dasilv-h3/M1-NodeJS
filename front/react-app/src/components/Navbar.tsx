@@ -1,8 +1,9 @@
 import { useState } from "react";
-import logo from "../assets/logo3.png";
+import logo from "../assets/img/logo3.png";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import MenuMobile from "./MenuMobile";
 import MenuDesktop from "./MenuDesktop";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 const Navbar = () => {
     const [burgerIsOpen, setBurgerIsOpen] = useState(false);
@@ -52,9 +53,10 @@ const Navbar = () => {
             </div>
             
             <div className="hidden items-center justify-end md:flex">
-                <a href="">Se connecter</a>
-                <p> / </p>
-                <a href=""> S'inscrire</a>
+                <a href="/connexion">Se connecter</a>&nbsp;
+                <p> / </p>&nbsp;
+                <a href="/inscription"> S'inscrire</a>&nbsp;
+                <UserCircleIcon className="h-5"/>
             </div>
         </nav>
         // <nav className="w-screen h-24 flex justify-center items-center bg-blue-950 sm:justify-between sm:px-5">

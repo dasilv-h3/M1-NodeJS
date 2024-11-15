@@ -6,6 +6,7 @@ import axios from "../services/Axios";
 import { News } from "../interfaces/NewsInterfaces";
 import { Club } from "../interfaces/ClubInterfaces";
 // import Footer from "../components/Footer";
+import Partenaires from "../components/Sponsors";
 
 const Home = () => {
     const [newsPrincipal, setNewsPrincipal] = useState<News | null >(null);

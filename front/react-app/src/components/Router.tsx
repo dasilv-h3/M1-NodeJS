@@ -6,6 +6,8 @@ import Femininprojunior from "../pages/Femininprojunior";
 import Femininprosenior from "../pages/Femininprosenior";
 import Actualite from "../pages/Actualite";
 
+import Connexion from "../pages/Connexion";
+import Inscription from "../pages/Inscription"
 
 const Rooter = () => {
   return (
@@ -19,6 +21,8 @@ const Rooter = () => {
             <Route path="/actualites" element={<Actualite />} />
             <Route path="/contact" element={<Masculinprojunior />} />
             <Route path="/administration" element={<Masculinprojunior />} />
+            <Route path="/connexion" element={<Connexion />} />
+            <Route path="/inscription" element={<Inscription />} />
         </Routes>
     </BrowserRouter>
   );
