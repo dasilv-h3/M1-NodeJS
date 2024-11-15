@@ -14,6 +14,9 @@ import EditClub from "../pages/AdminDashboard/Club/EditClub";
 import ManageSponsors from "../pages/AdminDashboard/Sponsors/ManageSponsors";
 import AddSponsor from "../pages/AdminDashboard/Sponsors/AddSponsor";
 import EditSponsor from "../pages/AdminDashboard/Sponsors/EditSponsor";
+import ManageMatches from "../pages/AdminDashboard/Match/ManageMatches";
+import AddMatch from "../pages/AdminDashboard/Match/AddMatch";
+import EditMatch from "../pages/AdminDashboard/Match/EditMatch";
 
 const router = createBrowserRouter([
     {
@@ -88,8 +91,18 @@ const router = createBrowserRouter([
 		// errorElement: <NotFoundPage />,
 	},
     {
-		path: "/admin/matches",
-		// element: < />,
+		path: "/admin/manage-matches",
+		element: <ManageMatches />,
+		// errorElement: <NotFoundPage />,
+	},
+    {
+		path: "/admin/matches/add-match",
+		element: <AddMatch />,
+		// errorElement: <NotFoundPage />,
+	},
+    {
+		path: "/admin/matches/edit-match/:id",
+		element: <EditMatch />,
 		// errorElement: <NotFoundPage />,
 	},
     {

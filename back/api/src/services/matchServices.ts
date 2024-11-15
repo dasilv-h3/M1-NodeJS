@@ -4,7 +4,22 @@ import Match from '../models/Matches.js';
 import mysql from 'mysql2/promise';
 
 export const getAllMatches = async (): Promise<Match[]> => {
-    const [rows] = await pool.query('SELECT * FROM matches');
+    const [rows] = await pool.query(`
+        SELECT 
+            matches.id,
+            teams.name AS opponent_name,
+            sections.name AS section_name,
+            matches.score,
+            DATE_FORMAT(matches.date, '%d/%m/%Y') AS match_date,
+            DATE_FORMAT(matches.date, '%H:%i') AS match_time
+        FROM 
+            matches
+        JOIN 
+            teams ON matches.opponent_id = teams.id
+        JOIN 
+            sections ON matches.section_id = sections.id
+    `);
+    
     return rows as Match[];
 };
 
@@ -25,10 +40,10 @@ export const getMatchById = async (id: number): Promise<Match | null> => {
 };
 
 export const createMatch = async (match: Match): Promise<number> => {
-    const { section_id, score, team_id, date } = match;
+    const { section_id, score, opponent_id, date } = match;
     const [result] = await pool.execute(
-        'INSERT INTO matches (section_id, score, team_id, date) VALUES (?, ?, ?, ?)',
-        [section_id, score, team_id, date]
+        'INSERT INTO matches (section_id, score, opponent_id, date) VALUES (?, ?, ?, ?)',
+        [section_id, score, opponent_id, date]
     );
     const insertResult = result as mysql.ResultSetHeader;
     return insertResult.insertId;
@@ -65,17 +80,7 @@ export const deleteMatch = async (id: number): Promise<boolean> => {
 };
 
 export const getAllMatchesMasculinJunior = async (): Promise<Match[]> => {
-    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.team_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 1;');    
-    return rows as Match[];
-};
-
-export const getAllMatchesMasculinSenior = async (): Promise<Match[]> => {
-    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.team_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 2;');    
-    return rows as Match[];
-};
-
-export const getAllMatchesFemininJunior = async (): Promise<Match[]> => {
-    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.team_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 3;');    
+    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.team_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 1 AND m.team_id= 1;');
     return rows as Match[];
 };
 
