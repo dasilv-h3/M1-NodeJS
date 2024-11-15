@@ -43,40 +43,17 @@ CREATE TABLE IF NOT EXISTS sections (
     name VARCHAR(255) NOT NULL
 );
 
--- Création de la table sections
-CREATE TABLE IF NOT EXISTS sections (
+-- Création de la table club
+CREATE TABLE IF NOT EXISTS club (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    description TEXT,
+    history TEXT
+);
+
+-- Création de la table teams
+CREATE TABLE IF NOT EXISTS teams (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
-);
-
--- Création de la table club
-CREATE TABLE IF NOT EXISTS club (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    description TEXT,
-    history TEXT
-);
-
--- Création de la table teams
-CREATE TABLE IF NOT EXISTS teams (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    section_id INT,
-    FOREIGN KEY (section_id) REFERENCES sections(id) ON DELETE SET NULL
-);
-
--- Création de la table club
-CREATE TABLE IF NOT EXISTS club (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    description TEXT,
-    history TEXT
-);
-
--- Création de la table teams
-CREATE TABLE IF NOT EXISTS teams (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    section_id INT,
-    FOREIGN KEY (section_id) REFERENCES sections(id) ON DELETE SET NULL
 );
 
 -- Création de la table news
@@ -103,11 +80,11 @@ CREATE TABLE IF NOT EXISTS sponsors (
 CREATE TABLE IF NOT EXISTS matches (
     id INT AUTO_INCREMENT PRIMARY KEY,
     section_id INT,
-    team_id INT,
+    opponent_id INT,
     score VARCHAR(50),
     date DATETIME,
     FOREIGN KEY (section_id) REFERENCES sections(id) ON DELETE SET NULL,
-    FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE SET NULL
+    FOREIGN KEY (opponent_id) REFERENCES teams(id) ON DELETE SET NULL
 );
 
 -- INSERT ROLES
@@ -145,32 +122,13 @@ VALUES
 ('Description du Club XYZ', 'Histoire du Club XYZ');
 
 -- INSERT TEAMS
-INSERT INTO teams (name, section_id)
+INSERT INTO teams (name)
 VALUES 
-('Notre club', 1),
-('Notre club', 2),
-('Notre club', 3),
-('Notre club', 4),
-('Paris FC', 1),
-('Paris FC', 2),
-('Paris FC', 3),
-('Paris FC', 4),
-('Marseille', 1),
-('Marseille', 2),
-('Marseille', 3),
-('Marseille', 4),
-('Olympique lyonnais', 1),
-('Olympique lyonnais', 2),
-('Olympique lyonnais', 3),
-('Olympique lyonnais', 4),
-('Toulouse', 1),
-('Toulouse', 2),
-('Toulouse', 3),
-('Toulouse', 4),
-('Girondin de Bordeaux', 1),
-('Girondin de Bordeaux', 2),
-('Girondin de Bordeaux', 3),
-('Girondin de Bordeaux', 4);
+('Paris FC'),
+('Marseille'),
+('Olympique lyonnais'),
+('Toulouse'),
+('Girondin de Bordeaux');
 
 -- INSERT SPONSORS
 INSERT INTO sponsors (logo, url)
@@ -181,15 +139,10 @@ VALUES
 
 
 -- INSERT MATCHES
-INSERT INTO matches (section_id, team_id, score, date)
+INSERT INTO matches (section_id, opponent_id, score, date)
 VALUES
 (1, 1, '2-1',  '2024-10-05 15:00:00'),
 (2, 2, '3-0', '2024-10-06 18:30:00'),
 (3, 3, '1-1',  '2024-10-07 14:00:00'),
 (4, 4, '4-2', '2024-10-08 17:45:00'),
-(1, 5, '0-2', '2024-10-09 16:00:00'),
-(2, 6, '1-3', '2024-10-10 19:00:00'),
-(3, 7, '2-2', '2024-10-14 15:30:00'),
-(4, 8, '3-1', '2024-10-15 18:00:00'),
-(1, 9, '1-0', '2024-10-16 14:00:00'),
-(4, 10, '0-0', '2024-10-17 16:45:00');
+(1, 5, '0-2', '2024-10-09 16:00:00');

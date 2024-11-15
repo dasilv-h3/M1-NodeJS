@@ -5,6 +5,8 @@ import newRoutes from './routes/newRoutes.js';
 import sponsorRoutes from './routes/sponsorRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import clubRoutes from './routes/clubRoutes.js';
+import teamsRoutes from './routes/teamsRoute.js';
+import sectionsRoutes from './routes/sectionsRoutes.js';
 import path from 'path';
 
 const app = express();
@@ -28,5 +30,7 @@ app.use('/api/news', newRoutes);
 app.use('/api/sponsors', sponsorRoutes);
 app.use('/api/users', authRoutes);
 app.use('/api/club', clubRoutes);
+app.use('/api/teams', teamsRoutes);
+app.use('/api/sections', sectionsRoutes);
 
 app.use('/uploads/sponsors', express.static(path.resolve('uploads/sponsors')));
