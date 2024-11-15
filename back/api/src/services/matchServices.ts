@@ -9,12 +9,12 @@ export const getAllMatches = async (): Promise<Match[]> => {
 };
 
 export const getPreviousMatches = async (): Promise<Match[]> => {
-    const [rows] = await pool.query('SELECT * FROM matches WHERE date <= NOW() ORDER BY date DESC LIMIT 3');
+    const [rows] = await pool.query('SELECT matches.score, matches.date, sections.name AS section_name, teams.name AS team_name FROM matches INNER JOIN teams ON matches.team_id = teams.id INNER JOIN sections ON matches.section_id = sections.id WHERE matches.date <= NOW() ORDER BY `matches`.`date` DESC LIMIT 3');
     return rows as Match[];
 };
 
 export const getNextMatches = async (): Promise<Match[]> => {
-    const [rows] = await pool.query('SELECT * FROM matches WHERE date >= NOW() ORDER BY date');
+    const [rows] = await pool.query('SELECT sections.name as section_name, teams.name as team_name, matches.score, matches.date FROM matches INNER JOIN sections ON matches.section_id = sections.id INNER JOIN teams ON matches.team_id = teams.id WHERE date >= NOW() ORDER BY date');
     return rows as Match[];
 };
 
