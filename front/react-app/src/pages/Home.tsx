@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "../services/Axios";
 import { News } from "../interfaces/NewsInterfaces";
 import { Club } from "../interfaces/ClubInterfaces";
-// import Footer from "../components/Footer";
 import Partenaires from "../components/Sponsors";
+// import Footer from "../components/Footer";
 
 const Home = () => {
     const [newsPrincipal, setNewsPrincipal] = useState<News | null >(null);
@@ -84,6 +84,9 @@ const Home = () => {
 
             <div className="p-[20%]">
                 <Calendar />
+            </div>
+            <div>
+                <Partenaires />
             </div>
         </>
     );

@@ -20,7 +20,7 @@ const MenuDesktop = () => {
                 <div onClick={toggleSubMenuMan} className="relative hover:cursor-pointer">
                     <p className="flex items-center gap-2">Masculin Pro <ChevronDownIcon className="h-4" /></p>
                     {subMenuMan ?
-                        <div className="absolute bg-white text-black p-2 top-10 w-[200px]">
+                        <div className="absolute bg-white text-black p-2 top-10 w-[200px] z-[10]">
                         <li>
                         <a href="/smj">section masculine junior</a>
                         </li>
@@ -33,7 +33,7 @@ const MenuDesktop = () => {
                 <div onClick={toggleSubMenuWoman} className="relative hover:cursor-pointer">
                     <p className="flex items-center gap-2">Féminin Pro <ChevronDownIcon className="h-4" /></p>
                     {subMenuWoman ?
-                        <div className="absolute bg-white text-black p-2 top-10 w-[200px]">
+                        <div className="absolute bg-white text-black p-2 top-10 w-[200px] z-[10]">
                         <a href="/sfj">
                             <li>section féminine junior</li>
                         </a>

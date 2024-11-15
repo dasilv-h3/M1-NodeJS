@@ -4,6 +4,7 @@ type Partenaire = {
   id: number;
   logo: string;
   url: string;
+  name: string;
 };
 
 const Partenaires: React.FC = () => {
@@ -19,6 +20,7 @@ const Partenaires: React.FC = () => {
           throw new Error("Erreur lors de la récupération des partenaires");
         }
         const data = await response.json();
+        
         setPartenaires(data);
       } catch (err: any) {
         setError(err.message);
@@ -50,11 +52,11 @@ const Partenaires: React.FC = () => {
             className="flex flex-col items-center space-y-2"
           >
             <img
-              src={partenaire.url}
+              src={`http://localhost:3000/uploads/sponsors/${partenaire.logo}`}
               alt={partenaire.logo}
               className="w-24 h-24 object-contain"
             />
-            <p className="text-gray-600 text-sm">{partenaire.logo}</p>
+            <p className="text-gray-600 text-sm">{partenaire.name}</p>
           </div>
         ))}
       </div>

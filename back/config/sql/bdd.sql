@@ -73,7 +73,8 @@ CREATE TABLE IF NOT EXISTS news (
 CREATE TABLE IF NOT EXISTS sponsors (
     id INT AUTO_INCREMENT PRIMARY KEY,
     logo VARCHAR(255),
-    url LONGTEXT
+    url LONGTEXT,
+    name VARCHAR(255),
 );
 
 -- Création de la table matches
