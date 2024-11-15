@@ -24,12 +24,12 @@ export const getAllMatches = async (): Promise<Match[]> => {
 };
 
 export const getPreviousMatches = async (): Promise<Match[]> => {
-    const [rows] = await pool.query('SELECT matches.score, matches.date, sections.name AS section_name, teams.name AS team_name FROM matches INNER JOIN teams ON matches.team_id = teams.id INNER JOIN sections ON matches.section_id = sections.id WHERE matches.date <= NOW() ORDER BY `matches`.`date` DESC LIMIT 3');
+    const [rows] = await pool.query('SELECT matches.score, matches.date, sections.name AS section_name, teams.name AS team_name FROM matches INNER JOIN teams ON matches.opponent_id = teams.id INNER JOIN sections ON matches.section_id = sections.id WHERE matches.date <= NOW() ORDER BY `matches`.`date` DESC LIMIT 3');
     return rows as Match[];
 };
 
 export const getNextMatches = async (): Promise<Match[]> => {
-    const [rows] = await pool.query('SELECT sections.name as section_name, teams.name as team_name, matches.score, matches.date FROM matches INNER JOIN sections ON matches.section_id = sections.id INNER JOIN teams ON matches.team_id = teams.id WHERE date >= NOW() ORDER BY date');
+    const [rows] = await pool.query('SELECT sections.name as section_name, teams.name as team_name, matches.score, matches.date FROM matches INNER JOIN sections ON matches.section_id = sections.id INNER JOIN teams ON matches.opponent_id = teams.id WHERE date >= NOW() ORDER BY date');
     return rows as Match[];
 };
 
@@ -80,21 +80,21 @@ export const deleteMatch = async (id: number): Promise<boolean> => {
 };
 
 export const getAllMatchesMasculinJunior = async (): Promise<Match[]> => {
-    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.team_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 1;');    
+    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.opponent_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 1;');    
     return rows as Match[];
 };
 
 export const getAllMatchesMasculinSenior = async (): Promise<Match[]> => {
-    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.team_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 2;');    
+    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.opponent_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 2;');    
     return rows as Match[];
 };
 
 export const getAllMatchesFemininJunior = async (): Promise<Match[]> => {
-    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.team_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 3;');    
+    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.opponent_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 3;');    
     return rows as Match[];
 };
 
 export const getAllMatchesFemininSenior = async (): Promise<Match[]> => {
-    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.team_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 4;');    
+    const [rows] = await pool.query('SELECT m.score, t.name AS team_name, s.name AS section_name, m.date FROM matches m INNER JOIN teams t ON m.opponent_id = t.id INNER JOIN sections s ON m.section_id = s.id WHERE m.section_id = 4;');    
     return rows as Match[];
 };

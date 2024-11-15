@@ -16,6 +16,10 @@ const Home = () => {
             const responseClub = await axios.get('/club');
 
             
+            if (responseClub.status < 200 || responseClub.status >= 300) {
+                throw new Error('Network response was not ok');
+            }
+
             if (response.status < 200 || response.status >= 300) {
                 throw new Error('Network response was not ok');
             }
@@ -23,8 +27,8 @@ const Home = () => {
             const data = response.data;
             const dataClub = responseClub.data;
             console.log('data news:', data,  '\ndata club:', dataClub,'\nnewsPrincipal:',newsPrincipal);
-            setNewsPrincipal(data[0]);
             setClub(dataClub[0]);
+            setNewsPrincipal(data[0]);
         } catch (e: any) {
             throw new Error(e);
         }
