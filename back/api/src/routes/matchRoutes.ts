@@ -22,8 +22,8 @@ router.get('/masculinjunior', authenticateToken, isActiveId, fetchAllMatchesMasc
 router.get('/masculinsenior', authenticateToken, isActiveId, fetchAllMatchesMasculinSenior);
 router.get('/femininjunior', authenticateToken, isActiveId, fetchAllMatchesFemininJunior);
 router.get('/femininsenior', authenticateToken, isActiveId, fetchAllMatchesFemininSenior);
-router.get('/previousMatches', authenticateToken, isActiveId, fetchPreviousMatches);
-router.get('/nextMatches', authenticateToken, isActiveId, fetchNextMatches);
+router.get('/previousMatches', fetchPreviousMatches);
+router.get('/nextMatches', fetchNextMatches);
 router.get('/:id', authenticateToken, isActiveId, fetchMatchById);
 
 // Routes protégées (par exemple, création, modification, suppression de matchs)
