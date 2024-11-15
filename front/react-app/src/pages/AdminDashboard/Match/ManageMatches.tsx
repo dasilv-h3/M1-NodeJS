@@ -31,10 +31,10 @@ const ManageMatches: React.FC = () => {
                 if (axiosError.response) {  // Vérifie que response est défini
                     // Vérification du status pour gérer une erreur 404
                     if (axiosError.response.status === 404) {
-                        const errorMessage = axiosError.response.data?.message as string ||undefined || 'Les matchs n\'ont pas été trouvés.';
+                        const errorMessage = 'Les matchs n\'ont pas été trouvés.';
                         setError(errorMessage);
                     } else {
-                        const errorMessage = axiosError.response.data?.message || 'Erreur lors du chargement des matchs.';
+                        const errorMessage = 'Erreur lors du chargement des matchs.';
                         setError(errorMessage);
                     }
                 } else {
