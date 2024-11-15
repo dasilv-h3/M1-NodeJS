@@ -72,7 +72,7 @@ export const signUp = async (req: Request, res: Response) => {
       password: hashedPassword, // Mot de passe hashé
       first_name,
       last_name,
-      role_id: 2,
+      role_id: 3,
       active: false, // Par défaut, l'utilisateur n'est pas actif
       permission: 626
     };
