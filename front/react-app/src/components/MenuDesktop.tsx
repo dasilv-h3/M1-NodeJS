@@ -20,25 +20,38 @@ const MenuDesktop = () => {
                 <div onClick={toggleSubMenuMan} className="relative hover:cursor-pointer">
                     <p className="flex items-center gap-2">Masculin Pro <ChevronDownIcon className="h-4" /></p>
                     {subMenuMan ?
-                        <div className="absolute bg-white text-black p-2 top-10">
-                        <p>section masculine junior</p>
-                        <p>section masculine senior</p>
+                        <div className="absolute bg-white text-black p-2 top-10 w-[200px]">
+                        <li>
+                        <a href="/smj">section masculine junior</a>
+                        </li>
+                        <li>
+                        <a href="/sms">section masculine senior</a>
+                        </li>
                         </div>
                         : null}
                 </div>
                 <div onClick={toggleSubMenuWoman} className="relative hover:cursor-pointer">
                     <p className="flex items-center gap-2">Féminin Pro <ChevronDownIcon className="h-4" /></p>
                     {subMenuWoman ?
-                        <div className="absolute bg-white text-black p-2 top-10">
-                        <p>section masculine junior</p>
-                        <p>section masculine senior</p>
+                        <div className="absolute bg-white text-black p-2 top-10 w-[200px]">
+                        <a href="/sfj">
+                            <li>section féminine junior</li>
+                        </a>
+                        <a href="/sfs">
+                            <li>section féminine senior</li>
+                        </a>
                         </div>
                         : null}
                 </div>
-                <Link to='/'></Link>
+                <a href="/actualite">
                 <li>Actualités</li>
+                </a>
+                <a href="/contact">
                 <li>Contact</li>
+                </a>
+                <a href="/administration">
                 <li>Administration</li>
+                </a>
             </ul>
     )
 }

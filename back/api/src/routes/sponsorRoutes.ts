@@ -16,7 +16,7 @@ const upload = multer({
 })
 
 // Routes publiques
-router.get('/',  authenticateToken, isActiveId, fetchAllSponsors);
+router.get('/', fetchAllSponsors);
 router.get('/:id',  authenticateToken, isActiveId, fetchSponsorsById);
 
 // Routes protégées (par exemple, création, modification, suppression de matchs)

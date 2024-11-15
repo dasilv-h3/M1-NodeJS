@@ -9,6 +9,7 @@ import Contact from "../pages/Contact";
 import Administration from "../pages/Administration";
 import Connexion from "../pages/Connexion";
 import Inscription from "../pages/Inscription";
+import Partenaires from "../components/Sponsors";
 
 const router = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
 	{
 		path: "/inscription",
 		element: <Inscription />,
+	},
+	{
+		path: "/sponsors",
+		element: <Partenaires />,
 	},
 ])
 

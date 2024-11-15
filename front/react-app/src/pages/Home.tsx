@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import Presentation from "../assets/video/presentation.mp4";
 // import Footer from "../components/Footer";
+import Partenaires from "../components/Sponsors";
 
 const Home = () => {
     return (
@@ -32,6 +33,7 @@ const Home = () => {
                 Neque totam culpa tempora, cumque reiciendis vero officia aliquid accusamus, ipsa doloremque facere, vel nesciunt recusandae veniam inventore nulla fugit deserunt omnis velit dignissimos consequuntur? Ipsam doloribus natus impedit quibusdam.
                 Necessitatibus tenetur beatae odio, cum animi recusandae, in corporis obcaecati quod itaque nisi nulla perferendis. Officiis quidem provident nulla architecto similique enim modi. Laudantium fugiat ut excepturi, voluptatum aut alias?</p>
             </section>
+            <Partenaires />
         </>
     );
 };
