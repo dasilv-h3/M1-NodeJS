@@ -7,6 +7,7 @@ interface Partner {
     id: number;
     logo: string;
     url: string;
+    name: string;
 }
 
 const ManageSponsors: React.FC = () => {
@@ -71,6 +72,7 @@ const ManageSponsors: React.FC = () => {
                         <tr className="border-b">
                             <th className="px-4 py-2 text-left">Logo</th>
                             <th className="px-4 py-2 text-left">URL</th>
+                            <th className="px-4 py-2 text-left">Nom</th>
                             <th className="px-4 py-2 text-left">Actions</th>
                         </tr>
                     </thead>
@@ -86,6 +88,11 @@ const ManageSponsors: React.FC = () => {
                                 <td className="px-4 py-2">
                                     <a href={partner.url} target="_blank" rel="noopener noreferrer" className="text-blue-500">
                                         {partner.url}
+                                    </a>
+                                </td>
+                                <td className="px-4 py-2">
+                                    <a href={partner.name} target="_blank" rel="noopener noreferrer" className="text-blue-500">
+                                        {partner.name}
                                     </a>
                                 </td>
                                 <td className="px-4 py-2">

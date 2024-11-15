@@ -57,7 +57,7 @@ const Home = () => {
                 <div className="absolute inset-0 flex items-center justify-center">
                     <div className="bg-white bg-opacity-80 text-black p-8 rounded-lg">
                         <h1 className="text-4xl font-bold">Bienvenue sur notre site</h1>
-                        <p className="text-lg mt-4">Découvrez notre contenu passionnant !</p>
+                        <p className="text-lg mt-4 text-center">Découvrez notre contenu passionnant !</p>
                     </div>
                 </div>
             </section>
