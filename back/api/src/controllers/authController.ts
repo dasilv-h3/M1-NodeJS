@@ -4,50 +4,50 @@ import Users from '../models/Users.js';
 import { CreateAUser, findUsersLogin, getAllUsers, getUserByEmail, removeUser, updateUser } from '../services/authServices.js';
 
 const router = express.Router();
-
+type UsersWithRole = Users & { role: string };
 // Route de connexion
 export const loginUser = async (req: Request, res: Response) => {
-	const { email, password } = req.body;
-    console.log('co:', req.body);
-    
+  const { email, password } = req.body;
+  
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required' });
+  }
 
-    if (!email || !password) {
-        return res.status(400).json({ message: 'Email and password are required' });
-    }
   try {
-      
+    const existingUser = await getUserByEmail(email);
 
-      const existingUser = await getUserByEmail(email);
+    if (!existingUser) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
 
-      if (!existingUser) {
-          return res.status(401).json({ message: 'Invalid email or password' });
-      }
+    const result = await findUsersLogin(email, password);
 
-      const result = await findUsersLogin(email, password);
+    if (!result) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
 
-      if (!result) {
-          return res.status(401).json({ message: 'Invalid email or password' });
-      }
+    // Cast explicite ou garantie du type
+    const userWithRole = result.user as UsersWithRole;
 
-      // Si la connexion réussit, renvoyer l'utilisateur et le token
-	res.status(200).json({
-          message: 'Login successful',
-          user: {
-              id: result.user.id,
-              email: result.user.email,
-              first_name: result.user.first_name,
-              last_name: result.user.last_name,
-              role_id: result.user.role_id,
-              active: result.user.active,
-          },
-          token: result.token,
-      });
-
+    // Si la connexion réussit, renvoyer l'utilisateur et le token
+    res.status(200).json({
+      message: 'Login successful',
+      user: {
+        id: userWithRole.id,
+        email: userWithRole.email,
+        first_name: userWithRole.first_name,
+        last_name: userWithRole.last_name,
+        role: userWithRole.role, // TypeScript reconnaît maintenant cette propriété
+        active: userWithRole.active,
+      },
+      token: result.token,
+    });
   } catch (error) {
-      console.error('Error during login:', error);
-      res.status(500).json({ message: 'Internal Server Error' });
+    console.error('Error during login:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+
 
 export const logoutUser = (req: Request, res: Response) => {
   res.status(200).json({ message: 'Logout successful' });

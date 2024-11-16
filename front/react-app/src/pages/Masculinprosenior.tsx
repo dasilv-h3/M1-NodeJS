@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Matches } from "../interfaces/MatchesIterfaces";
 import axios from "../services/Axios";
 import versus from "../assets/versus.png";
+import Navbar from "../components/Navbar";
 
 const Masculinprosenior = () =>{
     const NOTRE_EQUIPE = "FrontKick FC";
@@ -28,7 +29,9 @@ const Masculinprosenior = () =>{
         masculin();
     }, []);
     return(
-        <div className="">
+      <>
+      <Navbar />
+      <div className="">
         <h2 className="text-black mb-4">Masculins Séniors</h2>
       
         {/* Matchs à venir */}
@@ -83,6 +86,7 @@ const Masculinprosenior = () =>{
             })}
         </ul>
       </div>
+    </>
     )
 }
 

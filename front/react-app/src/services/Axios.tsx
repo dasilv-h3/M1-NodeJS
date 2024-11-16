@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJleGVtcGxlQHh5ei5mciIsInJvbGVfaWQiOjIsImFjdGl2ZSI6MSwiaWF0IjoxNzMxNjYxMDcwLCJleHAiOjE3MzE2NjQ2NzB9.N86dScV-lTWJJNtZxU5TNJ8omrSMSyg_iRdbmUZKyKA";
+const token = localStorage.getItem('token');
 
 const Axios = axios.create({
     baseURL: 'http://localhost:3000/api/',

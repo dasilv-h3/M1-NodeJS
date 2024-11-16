@@ -1,10 +1,12 @@
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 // import { Link } from "react-router-dom";
 
 const MenuDesktop = () => {
     const [subMenuMan, setSubMenuMan] = useState(false);
     const [subMenuWoman, setSubMenuWoman] = useState(false);
+    const {user} = useAuth();
 
     const toggleSubMenuMan = () => {
         setSubMenuWoman(false);
@@ -49,9 +51,10 @@ const MenuDesktop = () => {
                 <a href="/contact">
                 <li>Contact</li>
                 </a>
-                <a href="/administration">
+
+                {(user !== null && (user.role=='admin' || user.role=='editor') ) && <a href="/admin">
                 <li>Administration</li>
-                </a>
+                </a>}
             </ul>
     )
 }

@@ -18,10 +18,10 @@ const router = Router();
 
 // Routes publiques
 router.get('/', authenticateToken, isActiveId, fetchAllMatches);
-router.get('/masculinjunior', authenticateToken, isActiveId, fetchAllMatchesMasculinJunior);
-router.get('/masculinsenior', authenticateToken, isActiveId, fetchAllMatchesMasculinSenior);
-router.get('/femininjunior', authenticateToken, isActiveId, fetchAllMatchesFemininJunior);
-router.get('/femininsenior', authenticateToken, isActiveId, fetchAllMatchesFemininSenior);
+router.get('/masculinjunior', fetchAllMatchesMasculinJunior);
+router.get('/masculinsenior', fetchAllMatchesMasculinSenior);
+router.get('/femininjunior', fetchAllMatchesFemininJunior);
+router.get('/femininsenior', fetchAllMatchesFemininSenior);
 router.get('/previousMatches', fetchPreviousMatches);
 router.get('/nextMatches', fetchNextMatches);
 router.get('/:id', authenticateToken, isActiveId, fetchMatchById);

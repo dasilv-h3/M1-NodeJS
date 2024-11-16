@@ -6,11 +6,14 @@ import axios from "../services/Axios";
 import { News } from "../interfaces/NewsInterfaces";
 import { Club } from "../interfaces/ClubInterfaces";
 import Partenaires from "../components/Sponsors";
+import Swipe from "../components/Swipe";
+import { useAuth } from "../context/AuthContext";
 // import Footer from "../components/Footer";
 
 const Home = () => {
-    const [newsPrincipal, setNewsPrincipal] = useState<News | null >(null);
+    const [news, setNews] = useState<News[]>([]);
     const [club, setClub] = useState<Club | null>(null);
+    const {user, token} = useAuth();
     const actu = async () =>{
         try {
             const response = await axios.get('/news');
@@ -27,9 +30,9 @@ const Home = () => {
 
             const data = response.data;
             const dataClub = responseClub.data;
-            console.log('data news:', data,  '\ndata club:', dataClub,'\nnewsPrincipal:',newsPrincipal);
+            console.log('user:',user, '\ntoken:',token);
             setClub(dataClub[0]);
-            setNewsPrincipal(data[0]);
+            setNews(data);
         } catch (e: any) {
             throw new Error(e);
         }
@@ -84,6 +87,9 @@ const Home = () => {
 
             <div className="p-[20%]">
                 <Calendar />
+            </div>
+            <div className="">
+                <Swipe news={news} />
             </div>
             <div>
                 <Partenaires />

@@ -42,6 +42,7 @@ const Calendar = () => {
     ...matchesPrev.map((match) => ({
       title: `${match.team_name} - ${match.section_name} (${match.score})`,
       date: new Date(match.date).toISOString().split("T")[0],
+      className: "custom-event",
       backgroundColor: "red", // Couleur pour les matchs précédents
       borderColor: "red",
       extendedProps: match, // Ajouter toutes les données du match
@@ -49,6 +50,7 @@ const Calendar = () => {
     ...matchesNext.map((match) => ({
       title: ` ${match.team_name} - ${match.section_name}`,
       date: new Date(match.date).toISOString().split("T")[0],
+      className: "custom-event",
       backgroundColor: "green", // Couleur pour les matchs à venir
       borderColor: "green",
       extendedProps: match, // Ajouter toutes les données du match

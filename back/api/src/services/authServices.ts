@@ -120,14 +120,14 @@ export const removeUser = async (id: number): Promise<boolean> => {
   }
 };
 
+type UsersWithRole = Users & { role: string };
 
-
-export const findUsersLogin = async (email: string, password: string): Promise<{ user: Users; token: string } | null> => {
+export const findUsersLogin = async (email: string, password: string): Promise<{ user: UsersWithRole; token: string } | null> => {
   try {
       // 1. Récupérer l'utilisateur par son email
-      const [rows] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
-      const user = (rows as Users[])[0];
-
+      const [rows] = await pool.execute('SELECT email, password, first_name,last_name, active, roles.name as role, role_id FROM users INNER JOIN roles ON role_id = roles.id WHERE email = ?', [email]);
+      const user = (rows as UsersWithRole[])[0];
+      
       if (!user) {
           // Si aucun utilisateur n'est trouvé, la connexion échoue
           return null; // Connexion refusée

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Matches } from "../interfaces/MatchesIterfaces";
 import axios from "../services/Axios";
 import versus from "../assets/versus.png"
+import Navbar from "../components/Navbar";
 
 const Femininprojunior = () =>{
 
@@ -29,6 +30,8 @@ const Femininprojunior = () =>{
         feminin();
     }, []); // Utilisez un tableau de dépendance vide pour ne pas provoquer de boucles
     return(
+      <>
+      <Navbar />
         <div className="">
         <h2 className="text-black mb-4">Féminin Junior</h2>
       
@@ -84,6 +87,7 @@ const Femininprojunior = () =>{
             })}
         </ul>
       </div>
+      </>
     )
 }
 

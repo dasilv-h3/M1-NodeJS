@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../assets/css/connexion.css";
 import { useAuth } from "../context/AuthContext";
 import Axios from "../services/Axios";
+import logo from "../assets/img/logo3.png";
 
 const Connexion: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
+  const { setToken, setUser } = useAuth();
 
   const navigate = useNavigate();
-  const { setToken } = useAuth();
 
   const validateForm = () => {
     let valid = true;
@@ -45,6 +46,7 @@ const Connexion: React.FC = () => {
       const data = response.data;
   
       if (response.status === 200) {
+        setUser(data.user); // Stocke les informations de l'utilisateur dans le contexte
         setToken(data.token); // Stocke le token dans le contexte
         localStorage.setItem("token", data.token);
         navigate("/"); // Redirige vers la page d'accueil ou une autre page protégée
@@ -61,6 +63,12 @@ const Connexion: React.FC = () => {
   };
 
   return (
+    <>
+    <div className="flex justify-center">
+      <Link className="contents" to="/">
+        <img className="max-w-[10%]" src={logo} alt="logo" />
+      </Link>
+    </div>
     <div className="login-box">
       <h2>Connexion à FrontKick FC</h2>
       <form>
@@ -90,6 +98,7 @@ const Connexion: React.FC = () => {
         />
       </form>
     </div>
+    </>
   );
 };
 

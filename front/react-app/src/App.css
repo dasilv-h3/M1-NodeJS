@@ -125,5 +125,9 @@ footer div{
   height : calc(100% -6rem)
 }
 
+.custom-event{
+  cursor: pointer;
+}
+
 
 

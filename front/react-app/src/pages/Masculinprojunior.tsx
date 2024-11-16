@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "../services/Axios";
 import versus from "../assets/versus.png"
 import { Matches } from "../interfaces/MatchesIterfaces";
+import Navbar from "../components/Navbar";
+import "../assets/css/masculinprojunior.css";
 
 const Masculinprojunior = () => {
     const NOTRE_EQUIPE = "FrontKick FC";
@@ -29,6 +31,8 @@ const Masculinprojunior = () => {
     }, []); // Utilisez un tableau de dépendance vide pour ne pas provoquer de boucles
 
     return (
+        <>
+        <Navbar />
         <div className="">
         <h2 className="text-black mb-4">Masculins Juniors</h2>
       
@@ -84,7 +88,7 @@ const Masculinprojunior = () => {
             })}
         </ul>
       </div>
-      
+      </> 
     );
 };
 
