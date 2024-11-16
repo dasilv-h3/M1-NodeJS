@@ -6,6 +6,7 @@ import Femininprojunior from "../pages/Femininprojunior";
 import Femininprosenior from "../pages/Femininprosenior";
 import Actualite from "../pages/Actualite";
 import Contact from "../pages/Contact";
+import Administration from "../pages/Administration";
 import Connexion from "../pages/Connexion";
 import Inscription from "../pages/Inscription";
 import AdminDashboard from "../pages/AdminDashboard/AdminDashBoard";
@@ -16,8 +17,6 @@ import EditSponsor from "../pages/AdminDashboard/Sponsors/EditSponsor";
 import ManageMatches from "../pages/AdminDashboard/Match/ManageMatches";
 import AddMatch from "../pages/AdminDashboard/Match/AddMatch";
 import EditMatch from "../pages/AdminDashboard/Match/EditMatch";
-import ProtectedRoute from "../components/ProtectedRoute";
-
 
 const router = createBrowserRouter([
     {
@@ -27,12 +26,7 @@ const router = createBrowserRouter([
 	},
     {
 		path: "/admin",
-		element: 
-		(
-			<ProtectedRoute >
-				<AdminDashboard />
-			</ProtectedRoute>	
-		),
+		element: <AdminDashboard />,
 		// errorElement: <NotFoundPage />,
 	},
 	{
@@ -60,6 +54,10 @@ const router = createBrowserRouter([
 		element: <Contact />,
 	},
 	{
+		path: "/administration",
+		element: <Administration />,
+	},
+	{
 		path: "/connexion",
 		element: <Connexion />,
 	},
@@ -69,11 +67,7 @@ const router = createBrowserRouter([
 	},
     {
 		path: "/admin/edit-club",
-		element: (
-			<ProtectedRoute>	
-				<EditClub />
-			</ProtectedRoute>	
-		),
+		element: <EditClub />,
 		// errorElement: <NotFoundPage />,
 	},
     {
@@ -83,55 +77,32 @@ const router = createBrowserRouter([
 	},
     {
 		path: "/admin/sponsors",
-		element: 
-		(<ProtectedRoute>
-			<ManageSponsors />,
-		</ProtectedRoute>)
+		element: <ManageSponsors />,
 		// errorElement: <NotFoundPage />,
 	},
     {
 		path: "/admin/sponsors/add-sponsor",
-		element: (
-		<ProtectedRoute>
-			<AddSponsor />
-		</ProtectedRoute>
-		),
+		element: <AddSponsor />,
 		// errorElement: <NotFoundPage />,
 	},
     {
 		path: "/admin/sponsors/edit-sponsor/:id",
-		element: (
-			<ProtectedRoute>
-				<EditSponsor />
-			</ProtectedRoute>
-		),
+		element: <EditSponsor />,
 		// errorElement: <NotFoundPage />,
 	},
     {
 		path: "/admin/manage-matches",
-		element: (
-		<ProtectedRoute>
-			<ManageMatches />
-		</ProtectedRoute>
-		),
+		element: <ManageMatches />,
 		// errorElement: <NotFoundPage />,
 	},
     {
 		path: "/admin/matches/add-match",
-		element: (
-			<ProtectedRoute>
-				<AddMatch />
-			</ProtectedRoute>
-		),
+		element: <AddMatch />,
 		// errorElement: <NotFoundPage />,
 	},
     {
 		path: "/admin/matches/edit-match/:id",
-		element: (
-			<ProtectedRoute>
-				<EditMatch />
-			</ProtectedRoute>
-		),
+		element: <EditMatch />,
 		// errorElement: <NotFoundPage />,
 	},
     {
