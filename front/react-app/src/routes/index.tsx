@@ -17,6 +17,7 @@ import EditSponsor from "../pages/AdminDashboard/Sponsors/EditSponsor";
 import ManageMatches from "../pages/AdminDashboard/Match/ManageMatches";
 import AddMatch from "../pages/AdminDashboard/Match/AddMatch";
 import EditMatch from "../pages/AdminDashboard/Match/EditMatch";
+import UserManagement from "../pages/AdminDashboard/Users/UserManagement";
 
 const router = createBrowserRouter([
     {
@@ -107,7 +108,7 @@ const router = createBrowserRouter([
 	},
     {
 		path: "/admin/activate-account",
-		// element: < />,
+		element: <UserManagement />,
 		// errorElement: <NotFoundPage />,
 	},
 ])

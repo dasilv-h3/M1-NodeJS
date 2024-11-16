@@ -32,7 +32,7 @@ const AdminDashboard = () => {
                     </Link>
                     
                     {/* Activation des comptes éditeurs */}
-                    <Link to="/admin/activate-accounts" className="bg-white shadow-md p-6 rounded-lg text-center hover:shadow-lg transition duration-200">
+                    <Link to="/admin/activate-account" className="bg-white shadow-md p-6 rounded-lg text-center hover:shadow-lg transition duration-200">
                         <h2 className="text-xl font-semibold mb-4">Activation des comptes éditeurs</h2>
                         <p className="text-gray-700">Activez ou gérez les comptes éditeurs.</p>
                     </Link>

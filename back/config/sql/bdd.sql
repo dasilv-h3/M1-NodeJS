@@ -90,12 +90,11 @@ CREATE TABLE IF NOT EXISTS matches (
 
 -- INSERT ROLES
 INSERT INTO roles (name)
-VALUES ('admin'), ('editor');
+VALUES ('admin'), ('editor'), ('spectator');
 
 -- INSERT USERS
 INSERT INTO users (email, password, first_name, last_name, role_id, active, permission)
-VALUES ('admin@example.com', 'securepassword', 'Admin', 'User', 1, TRUE, 7777),
-       ('user@lambda.com', 'testing','Lambda', 'User', 2, FALSE, 0626);
+VALUES ('admin@example.com', '$argon2id$v=19$m=65536,t=3,p=4$eDlHNUU0WThJa3BNRDRERA$vswSA5SzO8l2GEuns2MrlQ', 'Admin', 'User', 1, TRUE, 7777),
 
 -- INSERT FEATURES
 INSERT INTO features (name)
@@ -134,9 +133,9 @@ VALUES
 -- INSERT SPONSORS
 INSERT INTO sponsors (logo, url)
 VALUES 
-('Nike', 'https://www.nike.com/fr/'),
-('Amazon', 'https://www.amazon.fr/'),
-('Tesla', 'https://www.tesla.com/fr_fr');
+('Nike.png', 'https://www.nike.com/fr/'),
+('Amazon.png', 'https://www.amazon.fr/'),
+('Tesla.png', 'https://www.tesla.com/fr_fr');
 
 
 -- INSERT MATCHES
