@@ -28,65 +28,89 @@ const Femininprosenior = () =>{
     useEffect(() => {
         feminin();
     }, []); // Utilisez un tableau de dépendance vide pour ne pas provoquer de boucles
-    return(
+    return (
       <>
-      <Navbar />
-        <div className="">
-        <h2 className="text-black mb-4">Féminin Junior</h2>
-      
-        {/* Matchs à venir */}
-   
-        <ul className=" mb-4">
-          {femininsenior
-            .filter((fs) => new Date(fs.date).getTime() > Date.now())
-            .map((fs) => {
-              const dateObj = new Date(fs.date);
-              const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
-              return (
-                <li className="flex gap-x-4 list-disc" key={`${fs.section_name}-${fs.date}`}>
-                  <div>
-                    <p>{NOTRE_EQUIPE}</p>
-                  </div>
-                  <div><img className="max-w-[3vh]" src={versus} alt="vs" /></div>
-                  <div>
-                    <p>{fs.team_name}</p>
-                  </div>
-                  <div>
-                    <p>{formattedDate}</p>
-                  </div>
-                </li>
-              );
-            })}
-        </ul>
-      
-        {/* Matchs Passés */}
-        <h3 className="text-gray-500 mb-4">Matchs Passés</h3>
-        <ul className="mb-4">
-          {femininsenior
-            .filter((fs) => new Date(fs.date).getTime() <= Date.now())
-            .map((fs) => {
-              const dateObj = new Date(fs.date);
-              const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
-      
-              return (
-                <li className="flex gap-x-4 list-disc" key={`${fs.section_name}-${fs.date}`}>
-                  <div>
-                    <p>{NOTRE_EQUIPE}</p>
-                  </div>
-                  <div>{fs.score}</div>
-                  <div>
-                    <p>{fs.team_name}</p>
-                  </div>
-                  <div>
-                    <p>{formattedDate}</p>
-                  </div>
-                </li>
-              );
-            })}
-        </ul>
-      </div>
+        <Navbar />
+        <div className="flex flex-col items-center mt-4">
+        <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 mb-4 border-b-4 border-blue-500 pb-2 inline-block">
+          🏆 Féminine Séniors
+        </h2>
+    
+          {/* Matchs à venir */}
+          <ul className="mb-4 space-y-4">
+            {femininsenior
+              .filter((fs) => new Date(fs.date).getTime() > Date.now())
+              .map((fs) => {
+                const dateObj = new Date(fs.date);
+                const formattedDate = `${dateObj
+                  .getDate()
+                  .toString()
+                  .padStart(2, "0")}/${(dateObj.getMonth() + 1)
+                  .toString()
+                  .padStart(2, "0")}/${dateObj.getFullYear()}`;
+    
+                return (
+                  <li
+                    className="flex items-center justify-between gap-x-4 p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+                    key={`${fs.section_name}-${fs.date}`}
+                  >
+                    <div>
+                      <p className="font-semibold">{NOTRE_EQUIPE}</p>
+                    </div>
+                    <div>
+                      <img className="max-w-[3vh]" src={versus} alt="vs" />
+                    </div>
+                    <div>
+                      <p className="font-semibold">{fs.team_name}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">{formattedDate}</p>
+                    </div>
+                  </li>
+                );
+              })}
+          </ul>
+    
+          {/* Matchs Passés */}
+          <h3 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 mb-4 border-b-4 border-blue-500 pb-2 inline-block">
+          🏆 Matchs Passés
+        </h3>
+          <ul className="mb-4 space-y-4">
+            {femininsenior
+              .filter((fs) => new Date(fs.date).getTime() <= Date.now())
+              .map((fs) => {
+                const dateObj = new Date(fs.date);
+                const formattedDate = `${dateObj
+                  .getDate()
+                  .toString()
+                  .padStart(2, "0")}/${(dateObj.getMonth() + 1)
+                  .toString()
+                  .padStart(2, "0")}/${dateObj.getFullYear()}`;
+    
+                return (
+                  <li
+                    className="flex items-center justify-between gap-x-4 p-4 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+                    key={`${fs.section_name}-${fs.date}`}
+                  >
+                    <div>
+                      <p className="font-semibold">{NOTRE_EQUIPE}</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold">{fs.score}</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold">{fs.team_name}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">{formattedDate}</p>
+                    </div>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
       </>
-    )
+    );
 }
 
 export default Femininprosenior;

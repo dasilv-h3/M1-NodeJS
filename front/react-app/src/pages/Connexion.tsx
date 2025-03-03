@@ -48,7 +48,7 @@ const Connexion: React.FC = () => {
       if (response.status === 200) {
         setUser(data.user); // Stocke les informations de l'utilisateur dans le contexte
         setToken(data.token); // Stocke le token dans le contexte
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("authToken", data.token);
         navigate("/"); // Redirige vers la page d'accueil ou une autre page protégée
       } else {
         if (data.message === "Invalid email or password") {
