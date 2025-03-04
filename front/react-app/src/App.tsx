@@ -3,7 +3,7 @@ import './App.css'
 import { AuthProvider } from "./context/AuthContext";
 // import Navbar from "./components/Navbar"
 // import Footer from "./components/Footer"
-import router from './routes/Index';
+import router from './routes/index';
 
 function App() {
   return (

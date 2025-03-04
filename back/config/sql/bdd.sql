@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS sponsors (
     id INT AUTO_INCREMENT PRIMARY KEY,
     logo VARCHAR(255),
     url LONGTEXT,
-    name VARCHAR(255),
+    name VARCHAR(255)
 );
 
 -- Création de la table matches
@@ -94,7 +94,7 @@ VALUES ('admin'), ('editor'), ('spectator');
 
 -- INSERT USERS
 INSERT INTO users (email, password, first_name, last_name, role_id, active, permission)
-VALUES ('admin@example.com', '$argon2id$v=19$m=65536,t=3,p=4$eDlHNUU0WThJa3BNRDRERA$vswSA5SzO8l2GEuns2MrlQ', 'Admin', 'User', 1, TRUE, 7777),
+VALUES ('admin@example.com', '$argon2id$v=19$m=65536,t=3,p=4$eDlHNUU0WThJa3BNRDRERA$vswSA5SzO8l2GEuns2MrlQ', 'Admin', 'User', 1, TRUE, 7777);
 
 -- INSERT FEATURES
 INSERT INTO features (name)
