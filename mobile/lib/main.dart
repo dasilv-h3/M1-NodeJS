@@ -1,17 +1,23 @@
 import 'package:fluterproject/widgets/navbar.dart';
 import 'package:flutter/material.dart';
+import './routes/rooter.dart'; // Assure-toi que le chemin du fichier AppRouter est correct.
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Sportive App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      onGenerateRoute: AppRouter.generateRoute, // Utilisation du AppRouter pour la navigation
+      initialRoute: '/', // Définir la route initiale (ici, la page d'accueil)
+      debugShowCheckedModeBanner: false, // Désactiver le bandeau de debug (optionnel)
       home: Navbar(),
     );
   }
