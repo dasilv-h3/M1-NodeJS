@@ -8,6 +8,7 @@ import '../widgets/feminine_senior.dart';
 import '../widgets/login.dart';
 import '../widgets/ajout_actualities.dart';
 import '../widgets/user_pref.dart';
+import '../widgets/contact.dart'; // Assure-toi que l'importation de contact.dart est correcte
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -15,7 +16,7 @@ class AppRouter {
       case '/':
         return MaterialPageRoute(builder: (_) => AccueilScreen());
       case '/news':
-        return MaterialPageRoute(builder: (_) => NewsScreen());
+        return MaterialPageRoute(builder: (_) => ActualitiesScreen()); 
       case '/section_masculine_junior':
         return MaterialPageRoute(builder: (_) => SectionMasculineJuniorScreen());
       case '/section_masculine_senior':
@@ -27,9 +28,13 @@ class AppRouter {
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case '/add_news':
-        return MaterialPageRoute(builder: (_) => AddNewsScreen());
+        return MaterialPageRoute(builder: (_) => AjoutActualitiesScreen(onNewsAdded: (title, description) {
+          // Implémenter la logique pour ajouter l'actualité
+        }));
       case '/user_preferences':
         return MaterialPageRoute(builder: (_) => UserPreferencesScreen());
+      case '/contact': // Nouvelle route pour la page de contact
+        return MaterialPageRoute(builder: (_) => ContactScreen()); // Ajout de la page ContactScreen
       default:
         return MaterialPageRoute(builder: (_) => AccueilScreen()); // fallback to home if route is not found
     }

@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
-class AddNewsScreen extends StatelessWidget {
+class AjoutActualitiesScreen extends StatefulWidget {
+  final Function(String, String) onNewsAdded;
+
+  AjoutActualitiesScreen({required this.onNewsAdded});
+
+  @override
+  _AjoutActualitiesScreenState createState() => _AjoutActualitiesScreenState();
+}
+
+class _AjoutActualitiesScreenState extends State<AjoutActualitiesScreen> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
@@ -28,16 +37,22 @@ class AddNewsScreen extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Logique pour ajouter l'actualité
-                // Tu peux ajouter ici une validation et une méthode pour envoyer les données
                 final title = _titleController.text;
                 final description = _descriptionController.text;
 
                 if (title.isNotEmpty && description.isNotEmpty) {
-                  // Logique pour envoyer les données à la base de données ou autre traitement
-                  print('Ajout de l\'actualité: $title, $description');
+                  // Envoie les données à l'écran de liste via la fonction callback
+                  widget.onNewsAdded(title, description);
+
+                  // Affiche un message de succès
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Actualité ajoutée avec succès !')),
+                  );
+
+                  // Retour à l'écran précédent après l'ajout
+                  Navigator.pop(context);
                 } else {
-                  // Affichage d'un message d'erreur si les champs sont vides
+                  // Affiche un message d'erreur si les champs sont vides
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Veuillez remplir tous les champs')),
                   );
