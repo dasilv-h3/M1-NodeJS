@@ -158,6 +158,7 @@ export const findUsersLogin = async (email: string, password: string): Promise<{
 
 export const getUserById = async (id: number): Promise<Users | null> => {
   const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
+  
   const matches = rows as Users[];
   return matches.length > 0 ? matches[0] : null;
 };

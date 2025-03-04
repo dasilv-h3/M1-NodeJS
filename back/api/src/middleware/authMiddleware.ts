@@ -35,6 +35,8 @@ export const someProtectedRoute = (req: Request, res: Response) => {
 };
 
 export const isActiveId = async (req: Request, res: Response, next: NextFunction) => {
+    console.log('isActiveId req:',req.user);
+    
     const user = await getUserById(req.user?.id as number);
     console.log("IS ACTIVE ID", user);
     

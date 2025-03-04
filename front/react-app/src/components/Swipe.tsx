@@ -31,7 +31,7 @@ const Swipe: React.FC<SwipeProps> = ({ news }) => {
       className="my-6"
     >
     <div className="flex flex-wrap gap-4 justify-center">
-      <Link to="/actualite">
+      <Link to="/actualite" className="flex mr-5">
       {news.map((item) => (
           <Card
             key={item.id}

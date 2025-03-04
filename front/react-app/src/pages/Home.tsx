@@ -85,7 +85,7 @@ const Home = () => {
                 );
             })()}
 
-            <div className="p-[20%]">
+            <div className="p-[15%]">
                 <Calendar />
             </div>
             <div className="">
