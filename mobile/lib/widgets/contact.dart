@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 36abf6e5a4029c5348da30b3320cb3be24ffa0ef
 import 'package:flutter/material.dart';
 
 class ContactScreen extends StatefulWidget {
