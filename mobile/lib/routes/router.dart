@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import '../widgets/accueil.dart';
-import '../widgets/actualities.dart';
-import '../widgets/masculine_junior.dart';
-import '../widgets/masculine_senior.dart';
-import '../widgets/feminine_junior.dart';
-import '../widgets/feminine_senior.dart';
-import '../widgets/login.dart';
-import '../widgets/ajout_actualities.dart';
-import '../widgets/user_pref.dart';
-import '../widgets/contact.dart'; // Assure-toi que l'importation de contact.dart est correcte
+import '../screens/accueil.dart';
+import '../screens/actualities.dart';
+import '../screens/masculine_junior.dart';
+import '../screens/masculine_senior.dart';
+import '../screens/feminine_junior.dart';
+import '../screens/feminine_senior.dart';
+import '../screens/login.dart';
+import '../screens/ajout_actualities.dart';
+import '../screens/favoris.dart';
+import '../screens/contact.dart';
+import '../screens/sign_in.dart'; // Import de la page d'inscription
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -27,6 +28,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SectionFeminineSeniorScreen());
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginScreen());
+      case '/sign_in': // Nouvelle route pour l'inscription
+        return MaterialPageRoute(builder: (_) => SignInScreen()); // Page d'inscription
       case '/add_news':
         return MaterialPageRoute(builder: (_) => AjoutActualitiesScreen(onNewsAdded: (title, description) {
           // Implémenter la logique pour ajouter l'actualité

@@ -1,16 +1,5 @@
 
 import 'package:flutter/material.dart';
-import '../widgets/accueil.dart';
-import '../widgets/actualities.dart';
-import '../widgets/masculine_junior.dart';
-import '../widgets/masculine_senior.dart';
-import '../widgets/feminine_junior.dart';
-import '../widgets/feminine_senior.dart';
-import '../widgets/login.dart';
-import '../widgets/ajout_actualities.dart';
-import '../widgets/user_pref.dart';
-import '../widgets/contact.dart'; // Assurez-vous que le chemin est correct pour l'import
-import '../widgets/contact.dart'; // Assurez-vous que le chemin est correct pour l'import
 
 class AccueilScreen extends StatelessWidget {
   @override
@@ -27,17 +16,11 @@ class AccueilScreen extends StatelessWidget {
           children: <Widget>[
             // Header du Drawer
             DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blueAccent,
-              ),
+              decoration: BoxDecoration(color: Colors.blueAccent),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.sports,
-                    color: Colors.white,
-                    size: 60,
-                  ),
+                  Icon(Icons.sports, color: Colors.white, size: 60),
                   SizedBox(height: 10),
                   Text(
                     'Application Sportive',
@@ -60,43 +43,59 @@ class AccueilScreen extends StatelessWidget {
             ),
             // Section Masculine
             ExpansionTile(
-              leading: Icon(Icons.people, color: Colors.blue),
-              title: Text('Section Masculine', style: TextStyle(fontWeight: FontWeight.bold)),
+              leading: Icon(
+                Icons.people,
+                color: Colors.blue,
+              ), // Icône pour la section Masculine
+              title: Text(
+                'Section Masculine',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               children: [
+                // Sous-menu Junior sans icône
                 _buildListTile(
                   context,
                   text: 'Junior',
                   route: '/section_masculine_junior',
                   color: Colors.blue,
-                  icon: Icons.people,
+                  icon: Icons.circle, // Icône vide (pas d'icône visible)
                 ),
+                // Sous-menu Senior sans icône
                 _buildListTile(
                   context,
                   text: 'Senior',
                   route: '/section_masculine_senior',
                   color: Colors.blue,
-                  icon: Icons.people,
+                  icon: Icons.circle, // Icône vide (pas d'icône visible)
                 ),
               ],
             ),
             // Section Féminine
             ExpansionTile(
-              leading: Icon(Icons.people, color: Colors.pink),
-              title: Text('Section Féminine', style: TextStyle(fontWeight: FontWeight.bold)),
+              leading: Icon(
+                Icons.people,
+                color: Colors.pink,
+              ), // Icône pour la section Féminine
+              title: Text(
+                'Section Féminine',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               children: [
+                // Sous-menu Junior sans icône
                 _buildListTile(
                   context,
                   text: 'Junior',
                   route: '/section_feminine_junior',
                   color: Colors.pink,
-                  icon: Icons.people,
+                  icon: Icons.circle, // Icône vide (pas d'icône visible)
                 ),
+                // Sous-menu Senior sans icône
                 _buildListTile(
                   context,
                   text: 'Senior',
                   route: '/section_feminine_senior',
                   color: Colors.pink,
-                  icon: Icons.people,
+                  icon: Icons.circle, // Icône vide (pas d'icône visible)
                 ),
               ],
             ),
@@ -114,12 +113,13 @@ class AccueilScreen extends StatelessWidget {
               color: Colors.purple,
               icon: Icons.add_circle,
             ),
+            // Changement ici pour "Favoris" avec un icône de cœur rouge
             _buildListTile(
               context,
-              text: 'Préférences utilisateur',
-              route: '/user_preferences',
-              color: Colors.teal,
-              icon: Icons.settings,
+              text: 'Favoris',
+              route: '/favoris',
+              color: Colors.red,
+              icon: Icons.favorite, // Icône de cœur
             ),
             _buildListTile(
               context,
@@ -142,12 +142,24 @@ class AccueilScreen extends StatelessWidget {
   }
 
   // Fonction pour créer des éléments de menu avec des icônes et des couleurs personnalisées
-  Widget _buildListTile(BuildContext context, {required String text, required String route, required Color color, required IconData icon}) {
+  Widget _buildListTile(
+    BuildContext context, {
+    required String text,
+    required String route,
+    required Color color,
+    required IconData icon,
+  }) {
     return ListTile(
       onTap: () {
         Navigator.pushNamed(context, route);
       },
-      leading: Icon(icon, color: color, size: 30),
+      leading: icon == Icons.circle
+          ? null
+          : Icon(
+              icon,
+              color: color,
+              size: 30,
+            ), // Aucune icône pour le sous-menu
       title: Text(
         text,
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
