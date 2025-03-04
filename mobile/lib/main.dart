@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './routes/rooter.dart'; // Assure-toi que le chemin du fichier AppRouter est correct.
+import 'routes/router.dart'; // Assure-toi que le chemin du fichier AppRouter est correct.
 
 void main() {
   runApp(MyApp());
