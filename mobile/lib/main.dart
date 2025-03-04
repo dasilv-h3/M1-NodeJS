@@ -1,3 +1,4 @@
+import 'package:fluterproject/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import './routes/rooter.dart'; // Assure-toi que le chemin du fichier AppRouter est correct.
 
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: AppRouter.generateRoute, // Utilisation du AppRouter pour la navigation
       initialRoute: '/', // Définir la route initiale (ici, la page d'accueil)
       debugShowCheckedModeBanner: false, // Désactiver le bandeau de debug (optionnel)
+      home: Navbar(),
     );
   }
 }
