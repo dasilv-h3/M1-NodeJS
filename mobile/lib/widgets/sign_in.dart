@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignInScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   // Contrôleurs pour capturer les entrées utilisateur
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   // Clé globale pour valider le formulaire
   final _formKey = GlobalKey<FormState>();
@@ -16,13 +18,14 @@ class _LoginScreenState extends State<LoginScreen> {
   // Fonction pour valider et soumettre le formulaire
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      // Si la validation réussit, on peut procéder à l'authentification
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Connexion réussie !')),
-      );
+      // Si la validation réussit, procéder à l'inscription (ex: envoyer aux backend)
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Inscription réussie !')));
       // Réinitialiser les champs après soumission si nécessaire
       _emailController.clear();
       _passwordController.clear();
+      _confirmPasswordController.clear();
     }
   }
 
@@ -30,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Connexion'),
+        title: Text('Inscription'),
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
       ),
@@ -43,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                'Se connecter',
+                'Créer un compte',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -67,9 +70,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer un email';
                   }
-                  // Expression régulière pour valider l'email
-                  if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
-                      .hasMatch(value)) {
+                  if (!RegExp(
+                    r"^[a-zA-Z0-9._%+-]+@[a-zA0-9.-]+\.[a-zA-Z]{2,}$",
+                  ).hasMatch(value)) {
                     return 'Veuillez entrer un email valide';
                   }
                   return null;
@@ -86,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.lock),
                 ),
-                obscureText: true, // Masquer le mot de passe
+                obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer un mot de passe';
@@ -99,26 +102,48 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 20),
 
-              // Bouton de connexion
+              // Champ pour la confirmation du mot de passe
+              TextFormField(
+                controller: _confirmPasswordController,
+                decoration: InputDecoration(
+                  labelText: 'Confirmer le mot de passe',
+                  hintText: 'Confirmez votre mot de passe',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.lock),
+                ),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez confirmer votre mot de passe';
+                  }
+                  if (value != _passwordController.text) {
+                    return 'Les mots de passe ne correspondent pas';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20),
+
+              // Bouton d'inscription
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Se connecter'),
+                child: Text('S\'inscrire'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent, // Utilisation de backgroundColor
+                  backgroundColor: Colors.blueAccent,
                   padding: EdgeInsets.symmetric(vertical: 15),
                   textStyle: TextStyle(fontSize: 16),
                 ),
               ),
               SizedBox(height: 10),
 
-              // Lien pour s'inscrire si l'utilisateur n'a pas de compte
+              // Lien pour la page de connexion si l'utilisateur a déjà un compte
               TextButton(
                 onPressed: () {
-                  // Rediriger vers la page d'inscription
-                  Navigator.pushNamed(context, '/sign_in');
+                  // Rediriger vers la page de connexion (page déjà créée)
+                  Navigator.pushReplacementNamed(context, '/login');
                 },
                 child: Text(
-                  'Pas encore de compte ? S\'inscrire',
+                  'Déjà un compte ? Se connecter',
                   style: TextStyle(color: Colors.blueAccent),
                 ),
               ),

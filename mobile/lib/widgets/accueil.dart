@@ -58,43 +58,47 @@ class AccueilScreen extends StatelessWidget {
             ),
             // Section Masculine
             ExpansionTile(
-              leading: Icon(Icons.people, color: Colors.blue),
+              leading: Icon(Icons.people, color: Colors.blue), // Icône pour la section Masculine
               title: Text('Section Masculine', style: TextStyle(fontWeight: FontWeight.bold)),
               children: [
+                // Sous-menu Junior sans icône
                 _buildListTile(
                   context,
                   text: 'Junior',
                   route: '/section_masculine_junior',
                   color: Colors.blue,
-                  icon: Icons.people,
+                  icon: Icons.circle, // Icône vide (pas d'icône visible)
                 ),
+                // Sous-menu Senior sans icône
                 _buildListTile(
                   context,
                   text: 'Senior',
                   route: '/section_masculine_senior',
                   color: Colors.blue,
-                  icon: Icons.people,
+                  icon: Icons.circle, // Icône vide (pas d'icône visible)
                 ),
               ],
             ),
             // Section Féminine
             ExpansionTile(
-              leading: Icon(Icons.people, color: Colors.pink),
+              leading: Icon(Icons.people, color: Colors.pink), // Icône pour la section Féminine
               title: Text('Section Féminine', style: TextStyle(fontWeight: FontWeight.bold)),
               children: [
+                // Sous-menu Junior sans icône
                 _buildListTile(
                   context,
                   text: 'Junior',
                   route: '/section_feminine_junior',
                   color: Colors.pink,
-                  icon: Icons.people,
+                  icon: Icons.circle, // Icône vide (pas d'icône visible)
                 ),
+                // Sous-menu Senior sans icône
                 _buildListTile(
                   context,
                   text: 'Senior',
                   route: '/section_feminine_senior',
                   color: Colors.pink,
-                  icon: Icons.people,
+                  icon: Icons.circle, // Icône vide (pas d'icône visible)
                 ),
               ],
             ),
@@ -145,7 +149,7 @@ class AccueilScreen extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(context, route);
       },
-      leading: Icon(icon, color: color, size: 30),
+      leading: icon == Icons.circle ? null : Icon(icon, color: color, size: 30), // Aucune icône pour le sous-menu
       title: Text(
         text,
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

@@ -8,7 +8,8 @@ import '../widgets/feminine_senior.dart';
 import '../widgets/login.dart';
 import '../widgets/ajout_actualities.dart';
 import '../widgets/user_pref.dart';
-import '../widgets/contact.dart'; // Assure-toi que l'importation de contact.dart est correcte
+import '../widgets/contact.dart';
+import '../widgets/sign_in.dart'; // Import de la page d'inscription
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -27,6 +28,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SectionFeminineSeniorScreen());
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginScreen());
+      case '/sign_in': // Nouvelle route pour l'inscription
+        return MaterialPageRoute(builder: (_) => SignInScreen()); // Page d'inscription
       case '/add_news':
         return MaterialPageRoute(builder: (_) => AjoutActualitiesScreen(onNewsAdded: (title, description) {
           // Implémenter la logique pour ajouter l'actualité
