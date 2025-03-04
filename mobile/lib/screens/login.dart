@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -17,9 +19,9 @@ class _LoginScreenState extends State<LoginScreen> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       // Si la validation réussit, on peut procéder à l'authentification
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Connexion réussie !')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Connexion réussie !')));
       // Réinitialiser les champs après soumission si nécessaire
       _emailController.clear();
       _passwordController.clear();
@@ -68,8 +70,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     return 'Veuillez entrer un email';
                   }
                   // Expression régulière pour valider l'email
-                  if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
-                      .hasMatch(value)) {
+                  if (!RegExp(
+                    r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+                  ).hasMatch(value)) {
                     return 'Veuillez entrer un email valide';
                   }
                   return null;
@@ -102,12 +105,13 @@ class _LoginScreenState extends State<LoginScreen> {
               // Bouton de connexion
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Se connecter'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent, // Utilisation de backgroundColor
+                  backgroundColor:
+                      Colors.blueAccent, // Utilisation de backgroundColor
                   padding: EdgeInsets.symmetric(vertical: 15),
                   textStyle: TextStyle(fontSize: 16),
                 ),
+                child: Text('Se connecter'),
               ),
               SizedBox(height: 10),
 

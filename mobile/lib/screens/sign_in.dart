@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
+
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
@@ -127,12 +129,12 @@ class _SignInScreenState extends State<SignInScreen> {
               // Bouton d'inscription
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('S\'inscrire'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
                   padding: EdgeInsets.symmetric(vertical: 15),
                   textStyle: TextStyle(fontSize: 16),
                 ),
+                child: Text('S\'inscrire'),
               ),
               SizedBox(height: 10),
 

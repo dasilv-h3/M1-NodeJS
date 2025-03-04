@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SectionMasculineJuniorScreen extends StatelessWidget {
+  const SectionMasculineJuniorScreen({super.key});
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

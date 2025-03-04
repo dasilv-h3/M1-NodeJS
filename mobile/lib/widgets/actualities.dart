@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fluterproject/model/user.dart';
 import 'package:fluterproject/service/user_api.dart';
 import 'package:flutter/material.dart';

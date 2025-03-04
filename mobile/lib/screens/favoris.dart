@@ -41,6 +41,8 @@ class UserPreferencesProvider with ChangeNotifier {
 }
 
 class UserPreferencesScreen extends StatelessWidget {
+  const UserPreferencesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Permet de récupérer l'état du thème et des préférences utilisateur
@@ -126,6 +128,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
