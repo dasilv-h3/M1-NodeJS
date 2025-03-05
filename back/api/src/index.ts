@@ -12,7 +12,12 @@ import path from 'path';
 const app = express();
 const port = 5000;
 
-app.use(cors(),
+
+app.use(cors(
+    {
+        // origin: 'http://localhost:3001', // Remplacez par votre domaine front-end
+        credentials: true, // Si vous avez besoin de cookies ou d'authentification
+    }),
     express.json()
 );
 
