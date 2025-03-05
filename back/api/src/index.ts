@@ -14,7 +14,7 @@ const port = 5000;
 
 app.use(cors(
     {
-        origin: 'http://localhost:3001', // Remplacez par votre domaine front-end
+        // origin: 'http://localhost:3001', // Remplacez par votre domaine front-end
         credentials: true, // Si vous avez besoin de cookies ou d'authentification
     }),
     express.json()

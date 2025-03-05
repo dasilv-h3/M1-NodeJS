@@ -141,8 +141,32 @@ VALUES
 -- INSERT MATCHES
 INSERT INTO matches (section_id, opponent_id, score, date)
 VALUES
-(1, 1, '2-1',  '2024-10-05 15:00:00'),
-(2, 2, '3-0', '2024-10-06 18:30:00'),
-(3, 3, '1-1',  '2024-10-07 14:00:00'),
-(4, 4, '4-2', '2024-10-08 17:45:00'),
-(1, 5, '0-2', '2024-10-09 16:00:00');
+(1, 2, '1-1',  '2024-03-15 15:00:00'),
+(2, 3, '2-0',  '2024-04-10 18:30:00'),
+(3, 4, '3-1',  '2024-05-05 14:00:00'),
+(4, 5, '0-2',  '2024-06-20 17:45:00'),
+(1, 3, '2-2',  '2024-07-08 16:00:00'),
+(2, 4, '4-3',  '2024-08-15 19:00:00'),
+(3, 5, '1-0',  '2024-09-21 14:30:00'),
+(4, 1, '3-1',  '2024-10-10 17:00:00'),
+(1, 5, '0-2',  '2024-11-05 15:00:00'),
+(2, 1, '2-2',  '2024-12-18 18:00:00'),
+(1, 2, '2-0',  '2025-03-10 15:00:00'),
+(2, 3, NULL,  '2025-04-05 18:30:00'),
+(3, 4, NULL,  '2025-05-12 14:00:00'),
+(4, 5, NULL,  '2025-06-20 17:45:00'),
+(1, 3, NULL,  '2025-07-08 16:00:00'),
+(2, 4, NULL,  '2025-08-15 19:00:00'),
+(3, 5, NULL,  '2025-09-21 14:30:00'),
+(4, 1, NULL,  '2025-10-10 17:00:00'),
+(1, 5, NULL,  '2025-11-05 15:00:00'),
+(2, 1, NULL,  '2025-12-18 18:00:00');
+
+-- INSERT NEWS
+INSERT INTO news (title, resume, description, image, created_at, edit_at, team_id)
+VALUES 
+('Victoire éclatante de Paris FC', 'Un match intense remporté par Paris FC', 'Paris FC a dominé le match contre son adversaire avec un score impressionnant de 2-1.', 'paris_fc_win.jpg', '2024-10-05', NOW(), 1),
+('Marseille écrase son adversaire', 'Marseille a montré sa suprématie', 'Un excellent jeu collectif a permis à Marseille de s’imposer avec un score de 3-0.', 'marseille_win.jpg', '2024-10-06', NOW(), 2),
+('Match nul pour l’Olympique Lyonnais', 'Un match équilibré entre les équipes', 'Malgré plusieurs occasions, les deux équipes se sont quittées sur un score de 1-1.', 'lyon_draw.jpg', '2024-10-07', NOW(), 3),
+('Toulouse impressionne avec une victoire 4-2', 'Un match palpitant avec de nombreux buts', 'Toulouse a su s’imposer en marquant quatre buts contre son adversaire.', 'toulouse_win.jpg', '2024-10-08', NOW(), 4),
+('Défaite des Girondins de Bordeaux', 'Un match difficile contre un adversaire solide', 'Les Girondins de Bordeaux n’ont pas réussi à faire la différence et s’inclinent 0-2.', 'bordeaux_lose.jpg', '2024-10-09', NOW(), 5);
