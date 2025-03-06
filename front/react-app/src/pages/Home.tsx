@@ -88,7 +88,7 @@ const Home = () => {
             <div className="p-[15%]">
                 <Calendar />
             </div>
-            <div className="">
+            <div className="test">
                 <Swipe news={news} />
             </div>
             <div>

@@ -4,7 +4,7 @@ const token = localStorage.getItem('authToken');
 
 const Axios = axios.create({
     baseURL: 'http://localhost:3000/api/',
-    withCredentials: true,
+    // withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
         ...(token && { 'Authorization': `Bearer ${token}` }) // Ajout de l'en-tête d'autorisation

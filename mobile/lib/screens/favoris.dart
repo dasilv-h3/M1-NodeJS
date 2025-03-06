@@ -1,59 +1,58 @@
 import 'package:fluterproject/widgets/custom_drawer.dart';
 import 'package:fluterproject/widgets/navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// Classe pour gérer l'état du thème (mode sombre ou clair)
-class ThemeProvider with ChangeNotifier {
-  bool _isDarkMode = false;
-
-  bool get isDarkMode => _isDarkMode;
-
-  void toggleTheme() {
-    _isDarkMode = !_isDarkMode;
-    notifyListeners(); // Notifie les widgets qui écoutent ce changement
-  }
+class Favoris extends StatefulWidget {
+  @override
+  _FavorisState createState() => _FavorisState();
 }
 
-// Classe pour gérer les sections favorites
-class UserPreferencesProvider with ChangeNotifier {
-  // Liste des sections disponibles
-  final List<String> _sections = [
-    "Section Masculine Junior",
-    "Section Masculine Senior",
-    "Section Féminine Junior",
-    "Section Féminine Senior",
-    "Actualités"
-  ];
+class _FavorisState extends State<Favoris> {
+  String? selectedSectionId;
+  final Map<String, String> sections = {
+    '1': 'Masculin Junior',
+    '2': 'Masculin Senior',
+    '3': 'Féminin Junior',
+    '4': 'Féminin Senior',
+  };
 
-  // Liste des sections favorites de l'utilisateur
-  List<String> _favoriteSections = [];
+  @override
+  void initState() {
+    super.initState();
+    _loadPreference();
+  }
 
-  List<String> get sections => _sections;
-  List<String> get favoriteSections => _favoriteSections;
+  // Charger la préférence sauvegardée
+  Future<void> _loadPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      selectedSectionId =
+          prefs.getString('featured_section_id') ?? '1'; // ID par défaut
+    });
+  }
 
-  // Ajouter ou retirer une section des favoris
-  void toggleFavorite(String section) {
-    if (_favoriteSections.contains(section)) {
-      _favoriteSections.remove(section);
-    } else {
-      _favoriteSections.add(section);
+  Future<void> _savePreference() async {
+    if (selectedSectionId != null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('featured_section_id', selectedSectionId!);
+
+      print(
+        "Préférence sauvegardée avec succès !",
+      ); // Vérifier si la fonction est appelée
+
+      // Afficher une confirmation à l'utilisateur
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Préférence sauvegardée avec succès !'),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
-    notifyListeners(); // Notifie les widgets qui écoutent ce changement
   }
-}
-
-class UserPreferencesScreen extends StatelessWidget {
-  const UserPreferencesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Permet de récupérer l'état du thème et des préférences utilisateur
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    final userPreferencesProvider = Provider.of<UserPreferencesProvider>(
-      context,
-    );
-
     return Scaffold(
       appBar: Navbar(),
       drawer: CustomDrawer(),
@@ -61,87 +60,37 @@ class UserPreferencesScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            // Affichage du mode actuel
+          children: [
             Text(
-              'Mode actuel : ${themeProvider.isDarkMode ? "Sombre" : "Clair"}',
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 20),
-            SwitchListTile(
-              title: Text('Activer le Mode Sombre'),
-              value: themeProvider.isDarkMode,
-              onChanged: (bool value) {
-                themeProvider.toggleTheme(); // Change le thème
-              },
-              secondary: Icon(
-                themeProvider.isDarkMode
-                    ? Icons.nightlight_round
-                    : Icons.wb_sunny,
-              ),
-            ),
-            SizedBox(height: 30),
-            // Affichage des sections disponibles et possibilité de les ajouter aux favoris
-            Text(
-              'Sélectionnez vos sections favorites',
+              'Choisissez votre section "à la une" :',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: userPreferencesProvider.sections.length,
-                itemBuilder: (context, index) {
-                  final section = userPreferencesProvider.sections[index];
-                  final isFavorite = userPreferencesProvider.favoriteSections
-                      .contains(section);
-
-                  return ListTile(
-                    title: Text(section),
-                    trailing: Icon(
-                      isFavorite ? Icons.star : Icons.star_border,
-                      color: isFavorite ? Colors.yellow : null,
-                    ),
-                    onTap: () {
-                      userPreferencesProvider.toggleFavorite(
-                        section,
-                      ); // Ajouter ou retirer des favoris
-                    },
-                  );
-                },
+            DropdownButton<String>(
+              value: selectedSectionId,
+              items:
+                  sections.entries.map((entry) {
+                    return DropdownMenuItem<String>(
+                      value: entry.key,
+                      child: Text(entry.value),
+                    );
+                  }).toList(),
+              onChanged: (newValue) {
+                setState(() {
+                  selectedSectionId = newValue!;
+                });
+              },
+            ),
+            SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                onPressed: _savePreference,
+                child: Text('Sauvegarder'),
               ),
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeProvider(), // Fournisseur du thème
-      child: ChangeNotifierProvider(
-        create:
-            (context) =>
-                UserPreferencesProvider(), // Fournisseur des préférences utilisateur
-        child: MyApp(),
-      ),
-    ),
-  );
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-
-    return MaterialApp(
-      title: 'Application Sportive',
-      theme: themeProvider.isDarkMode ? ThemeData.dark() : ThemeData.light(),
-      home: UserPreferencesScreen(),
     );
   }
 }

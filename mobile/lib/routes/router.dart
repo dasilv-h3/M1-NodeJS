@@ -10,6 +10,7 @@ import '../screens/ajout_actualities.dart';
 import '../screens/favoris.dart';
 import '../screens/contact.dart';
 import '../screens/sign_in.dart'; // Import de la page d'inscription
+// Import de la page de préférences
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -34,8 +35,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => AjoutActualitiesScreen(onNewsAdded: (title, description) {
           // Implémenter la logique pour ajouter l'actualité
         }));
-      case '/user_preferences':
-        return MaterialPageRoute(builder: (_) => UserPreferencesScreen());
+      case '/user_preferences': // Route pour la page des préférences utilisateur
+        return MaterialPageRoute(builder: (_) => Favoris()); // Page Favoris avec la logique de préférences
       case '/contact': // Nouvelle route pour la page de contact
         return MaterialPageRoute(builder: (_) => ContactScreen()); // Ajout de la page ContactScreen
       default:

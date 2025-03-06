@@ -16,32 +16,36 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
 
-  // Fonction pour envoyer la requête de connexion
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
       final email = _emailController.text;
       final password = _passwordController.text;
 
-      final response = await http.post(
-        Uri.parse('http://localhost:3000/api/users/login'),
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode({
-          'email': email,
-          'password': password,
-        }),
-      );
-      
-      if (response.statusCode == 200) {
-        // Récupérer les données de la réponse
-        final data = json.decode(response.body);
-        final String token = data['token']; // Assumes API returns a token field
+     
+        final response = await http.post(
+          Uri.parse('http://localhost:3000/api/users/login'),
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({'email': email, 'password': password}),
+        );
 
-        // Sauvegarder le token dans SharedPreferences
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('token', token);
-        print(data);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Connexion réussie !')));
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+          final String token = data['token'];
+          final String user = json.encode(data['user']);
+
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('token', token);
+          await prefs.setString('user', user);
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Connexion réussie !')),
+          );
 
         // Naviguer vers une autre page après la connexion réussie
         Navigator.pushReplacementNamed(context, '/'); // Exemple de redirection
@@ -92,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer un email';
                   }
-                  if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
+                  if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}").hasMatch(value)) {
                     return 'Veuillez entrer un email valide';
                   }
                   return null;
@@ -119,15 +123,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _submitForm,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  textStyle: TextStyle(fontSize: 16),
-                ),
-                child: Text('Se connecter'),
-              ),
+              _isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : ElevatedButton(
+                      onPressed: _submitForm,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        textStyle: TextStyle(fontSize: 16),
+                      ),
+                      child: Text('Se connecter'),
+                    ),
               SizedBox(height: 10),
               TextButton(
                 onPressed: () {
@@ -145,3 +151,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
