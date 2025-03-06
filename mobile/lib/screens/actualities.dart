@@ -1,4 +1,6 @@
 import 'package:fluterproject/widgets/actualities.dart';
+import 'package:fluterproject/widgets/custom_drawer.dart';
+import 'package:fluterproject/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
 class ActualitiesScreen extends StatelessWidget {
@@ -7,11 +9,8 @@ class ActualitiesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 189, 208, 239),
-        title: Text('Bienvenue sur l\'Application Sportive'),
-        centerTitle: true,
-      ),
+      appBar: Navbar(),
+      drawer: CustomDrawer(),
       body: Column(children: [Actualities()]),
     );
   }

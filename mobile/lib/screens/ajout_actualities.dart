@@ -1,3 +1,5 @@
+import 'package:fluterproject/widgets/custom_drawer.dart';
+import 'package:fluterproject/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
 class AjoutActualitiesScreen extends StatefulWidget {
@@ -16,7 +18,8 @@ class _AjoutActualitiesScreenState extends State<AjoutActualitiesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Ajouter une Actualité')),
+      appBar: Navbar(),
+      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

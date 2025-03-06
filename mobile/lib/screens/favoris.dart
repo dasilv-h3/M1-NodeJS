@@ -1,3 +1,5 @@
+import 'package:fluterproject/widgets/custom_drawer.dart';
+import 'package:fluterproject/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +23,7 @@ class UserPreferencesProvider with ChangeNotifier {
     "Section Masculine Senior",
     "Section Féminine Junior",
     "Section Féminine Senior",
+    "Actualités"
   ];
 
   // Liste des sections favorites de l'utilisateur
@@ -52,7 +55,8 @@ class UserPreferencesScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text('Préférences de l\'utilisateur')),
+      appBar: Navbar(),
+      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
