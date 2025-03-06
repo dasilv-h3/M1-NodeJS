@@ -107,6 +107,7 @@ class _AccueilScreenState extends State<AccueilScreen> {
               lastDay: DateTime.utc(2030, 3, 14),
               focusedDay: DateTime.now(),
               availableGestures: AvailableGestures.none,
+              availableCalendarFormats: {CalendarFormat.month: 'Mois'},
             ),
             Container(
               height: 500,
@@ -147,7 +148,8 @@ class _AccueilScreenState extends State<AccueilScreen> {
                                       onTap: () {
                                         Navigator.pushNamed(
                                           context,
-                                          '/news/${newsItem.id}',
+                                          '/news_detail',
+                                          arguments: newsItem,
                                         );
                                       },
                                     ),

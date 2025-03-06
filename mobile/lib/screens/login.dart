@@ -1,3 +1,4 @@
+import 'package:fluterproject/service/api_config.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -26,8 +27,9 @@ class _LoginScreenState extends State<LoginScreen> {
       final password = _passwordController.text;
 
       try {
+        final url = Uri.parse('${ApiConfig.baseUrl}users/login');
         final response = await http.post(
-          Uri.parse('http://localhost:3000/api/users/login'),
+          url,
           headers: {'Content-Type': 'application/json'},
           body: json.encode({'email': email, 'password': password}),
         );
@@ -102,7 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer un email';
                   }
-                  if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}").hasMatch(value)) {
+                  if (!RegExp(
+                    r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+                  ).hasMatch(value)) {
                     return 'Veuillez entrer un email valide';
                   }
                   return null;

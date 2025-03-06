@@ -10,10 +10,7 @@ class ApiService {
     final url = Uri.parse('${ApiConfig.baseUrl}news');
 
     try {
-      final response = await client.get(
-        url,
-        headers: ApiConfig.getHeaders(),
-      );
+      final response = await client.get(url, headers: ApiConfig.getHeaders());
 
       if (response.statusCode == 200) {
         // Si la requête réussit, on parse les données
@@ -27,6 +24,29 @@ class ApiService {
     }
   }
 
+  // Méthode pour créer les news
+  static Future<bool> createNews(News news) async {
+    final client = ApiConfig.createClient();
+    final url = Uri.parse('${ApiConfig.baseUrl}news');
+
+    try {
+      final response = await client.post(
+        url,
+        headers: ApiConfig.getHeaders(),
+        body: json.encode(news.toJson()), // Convertir l'objet en JSON
+      );
+
+      if (response.statusCode == 201) {
+        return true; // Succès
+      } else {
+        throw Exception('Erreur lors de la création de la news');
+      }
+    } finally {
+      client.close();
+    }
+  }
+
+  // Méthode pour récupérer les infos du club
   static Future<Club> getClub() async {
     final client = ApiConfig.createClient();
     final url = Uri.parse('${ApiConfig.baseUrl}club');

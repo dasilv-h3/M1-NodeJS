@@ -15,7 +15,14 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
           Scaffold.of(context).openDrawer();
         },
       ),
-      title: Center(child: Image.asset('assets/img/logo3.png', height: 100)),
+      title: Center(
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/');
+          },
+          child: Image.asset('assets/img/logo3.png', height: 100),
+        ),
+      ),
     );
   }
 

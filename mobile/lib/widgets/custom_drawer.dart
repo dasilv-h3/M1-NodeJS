@@ -66,7 +66,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ),
           ExpansionTile(
             leading: Icon(Icons.people, color: Colors.blue),
-            title: Text('Section Masculine', style: TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(
+              'Section Masculine',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             children: [
               _buildListTile(
                 context,
@@ -86,7 +89,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ),
           ExpansionTile(
             leading: Icon(Icons.people, color: Colors.pink),
-            title: Text('Section Féminine', style: TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(
+              'Section Féminine',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             children: [
               _buildListTile(
                 context,
@@ -107,27 +113,28 @@ class _CustomDrawerState extends State<CustomDrawer> {
           // ✅ Bouton "Se connecter" ou "Se déconnecter"
           token == null
               ? _buildListTile(
-                  context,
-                  text: 'Se connecter',
-                  route: '/login',
-                  color: Colors.orange,
-                  icon: Icons.login,
-                )
+                context,
+                text: 'Se connecter',
+                route: '/login',
+                color: Colors.orange,
+                icon: Icons.login,
+              )
               : ListTile(
-                  onTap: _logout,
-                  leading: Icon(Icons.logout, color: Colors.red, size: 30),
-                  title: Text(
-                    'Se déconnecter',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
+                onTap: _logout,
+                leading: Icon(Icons.logout, color: Colors.red, size: 30),
+                title: Text(
+                  'Se déconnecter',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-          _buildListTile(
-            context,
-            text: 'Ajouter une actualité',
-            route: '/add_news',
-            color: Colors.purple,
-            icon: Icons.add_circle,
-          ),
+              ),
+          if (token != null)
+            _buildListTile(
+              context,
+              text: 'Ajouter une actualité',
+              route: '/add_news',
+              color: Colors.purple,
+              icon: Icons.add_circle,
+            ),
           _buildListTile(
             context,
             text: 'Préférences utilisateur',
@@ -147,7 +154,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
     );
   }
 
-  Widget _buildListTile(BuildContext context, {required String text, required String route, required Color color, required IconData icon}) {
+  Widget _buildListTile(
+    BuildContext context, {
+    required String text,
+    required String route,
+    required Color color,
+    required IconData icon,
+  }) {
     return ListTile(
       onTap: () {
         Navigator.pushNamed(context, route);
