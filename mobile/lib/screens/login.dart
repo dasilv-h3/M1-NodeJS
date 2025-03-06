@@ -1,3 +1,5 @@
+import 'package:fluterproject/widgets/custom_drawer.dart';
+import 'package:fluterproject/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -38,13 +40,12 @@ class _LoginScreenState extends State<LoginScreen> {
         // Sauvegarder le token dans SharedPreferences
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
-
+        print(data);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Connexion réussie !')));
 
         // Naviguer vers une autre page après la connexion réussie
         Navigator.pushReplacementNamed(context, '/'); // Exemple de redirection
       } else {
-        throw Error();
         // Afficher un message d'erreur si la connexion échoue
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erreur de connexion')));
       }
@@ -58,11 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Connexion'),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent,
-      ),
+      appBar:Navbar(),
+      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
