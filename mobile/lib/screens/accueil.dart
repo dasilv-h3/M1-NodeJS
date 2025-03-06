@@ -102,9 +102,11 @@ class _AccueilScreenState extends State<AccueilScreen> {
                 description: club!.description,
               ),
             TableCalendar(
+              locale: 'fr_FR',
               firstDay: DateTime.utc(2010, 10, 16),
               lastDay: DateTime.utc(2030, 3, 14),
               focusedDay: DateTime.now(),
+              availableGestures: AvailableGestures.none,
             ),
             Container(
               height: 500,
@@ -132,24 +134,26 @@ class _AccueilScreenState extends State<AccueilScreen> {
                     child:
                         isLoading
                             ? Center(child: CircularProgressIndicator())
-                            : ListView.builder(
-                              itemCount: news.length,
-                              itemBuilder: (context, index) {
-                                var newsItem = news[index];
-                                return Card(
-                                  margin: EdgeInsets.all(8),
-                                  child: ListTile(
-                                    title: Text(newsItem.title),
-                                    subtitle: Text(newsItem.resume),
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        '/news/${newsItem.id}',
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
+                            : Expanded(
+                              child: ListView.builder(
+                                itemCount: news.length,
+                                itemBuilder: (context, index) {
+                                  var newsItem = news[index];
+                                  return Card(
+                                    margin: EdgeInsets.all(8),
+                                    child: ListTile(
+                                      title: Text(newsItem.title),
+                                      subtitle: Text(newsItem.resume),
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          '/news/${newsItem.id}',
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                   ),
                 ],
