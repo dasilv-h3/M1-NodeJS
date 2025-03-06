@@ -1,26 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // Contrôleurs pour capturer les entrées utilisateur
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  // Clé globale pour valider le formulaire
   final _formKey = GlobalKey<FormState>();
 
-  // Fonction pour valider et soumettre le formulaire
-  void _submitForm() {
+  // Fonction pour envoyer la requête de connexion
+  Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      // Si la validation réussit, on peut procéder à l'authentification
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Connexion réussie !')),
+      final email = _emailController.text;
+      final password = _passwordController.text;
+
+      final response = await http.post(
+        Uri.parse('http://localhost:3000/api/users/login'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'email': email,
+          'password': password,
+        }),
       );
-      // Réinitialiser les champs après soumission si nécessaire
+      
+      if (response.statusCode == 200) {
+        // Récupérer les données de la réponse
+        final data = json.decode(response.body);
+        final String token = data['token']; // Assumes API returns a token field
+
+        // Sauvegarder le token dans SharedPreferences
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Connexion réussie !')));
+
+        // Naviguer vers une autre page après la connexion réussie
+        Navigator.pushReplacementNamed(context, '/'); // Exemple de redirection
+      } else {
+        throw Error();
+        // Afficher un message d'erreur si la connexion échoue
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erreur de connexion')));
+      }
+
+      // Réinitialiser les champs après soumission
       _emailController.clear();
       _passwordController.clear();
     }
@@ -52,8 +81,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 30),
-
-              // Champ pour l'email
               TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(
@@ -67,17 +94,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer un email';
                   }
-                  // Expression régulière pour valider l'email
-                  if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
-                      .hasMatch(value)) {
+                  if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
                     return 'Veuillez entrer un email valide';
                   }
                   return null;
                 },
               ),
               SizedBox(height: 20),
-
-              // Champ pour le mot de passe
               TextFormField(
                 controller: _passwordController,
                 decoration: InputDecoration(
@@ -86,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.lock),
                 ),
-                obscureText: true, // Masquer le mot de passe
+                obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer un mot de passe';
@@ -98,23 +121,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               SizedBox(height: 20),
-
-              // Bouton de connexion
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Se connecter'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent, // Utilisation de backgroundColor
+                  backgroundColor: Colors.blueAccent,
                   padding: EdgeInsets.symmetric(vertical: 15),
                   textStyle: TextStyle(fontSize: 16),
                 ),
+                child: Text('Se connecter'),
               ),
               SizedBox(height: 10),
-
-              // Lien pour s'inscrire si l'utilisateur n'a pas de compte
               TextButton(
                 onPressed: () {
-                  // Rediriger vers la page d'inscription
                   Navigator.pushNamed(context, '/sign_in');
                 },
                 child: Text(
