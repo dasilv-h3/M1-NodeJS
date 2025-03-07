@@ -10,13 +10,19 @@ import {
 import Sponsors from '../models/Sponsors.js';
 import fs from 'node:fs/promises';
 
+const BASE_IMAGE_URL = 'http://localhost:3000/uploads';
+
 export const fetchAllSponsors = async (req: Request, res: Response) => {
     try {
         const sponsos = await getAllSponsors();
         if (sponsos.length === 0) {
             return res.status(404).json({ message: 'No sponsors found' });
         }
-        res.status(200).json(sponsos);
+        const formattedSponsors = sponsos.map(sponsor => ({
+            ...sponsor,
+            logo: `${BASE_IMAGE_URL}/sponsors/${sponsor.logo}`, // Ajoute l'URL complète
+        }));
+        res.status(200).json(formattedSponsors);
     } catch (error) {
         console.error('Error fetching sponsors:', error);
         res.status(500).json({ message: 'Internal Server Error' });

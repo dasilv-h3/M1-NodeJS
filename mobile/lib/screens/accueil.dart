@@ -4,6 +4,7 @@ import 'package:fluterproject/service/api_service.dart';
 import 'package:fluterproject/widgets/club_info.dart';
 import 'package:fluterproject/widgets/custom_drawer.dart';
 import 'package:fluterproject/widgets/navbar.dart';
+import 'package:fluterproject/widgets/sponsors.dart';
 import 'package:fluterproject/widgets/video_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -161,6 +162,7 @@ class _AccueilScreenState extends State<AccueilScreen> {
                 ],
               ),
             ),
+            SponsorsWidget(),
           ],
         ),
       ),
