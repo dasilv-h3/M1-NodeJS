@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:fluterproject/model/club.dart';
+import 'package:fluterproject/model/matches.dart';
 import 'package:fluterproject/service/api_config.dart';
 import 'package:fluterproject/model/news.dart';
 
@@ -45,6 +46,28 @@ class ApiService {
         return Club.fromJson(responseBody);
       } else {
         throw Exception('Erreur lors de la récupération des infos du club');
+      }
+    } finally {
+      client.close(); // Toujours fermer le client HTTP
+    }
+  }
+
+    static Future<List<Matches>> getPreviousMatches() async {
+    final client = ApiConfig.createClient();
+    final url = Uri.parse('${ApiConfig.baseUrl}matches/previousMatches');
+
+    try {
+      final response = await client.get(
+        url,
+        headers: ApiConfig.getHeaders(),
+      );
+
+      if (response.statusCode == 200) {
+        // Si la requête réussit, on parse les données
+        List<dynamic> responseBody = json.decode(response.body);
+        return responseBody.map((json) => Matches.fromJson(json)).toList();
+      } else {
+        throw Exception('Erreur lors de la récupération des news');
       }
     } finally {
       client.close(); // Toujours fermer le client HTTP

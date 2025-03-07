@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:fluterproject/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,13 +11,16 @@ class CustomDrawer extends StatefulWidget {
   _CustomDrawerState createState() => _CustomDrawerState();
 }
 
+
 class _CustomDrawerState extends State<CustomDrawer> {
   String? token; // Stocke le token utilisateur
+  User? user;
 
   @override
   void initState() {
     super.initState();
     _loadToken(); // Charger le token au démarrage
+    _loadUser();
   }
 
   Future<void> _loadToken() async {
@@ -31,6 +37,17 @@ class _CustomDrawerState extends State<CustomDrawer> {
       token = null; // Met à jour l'interface après déconnexion
     });
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+  }
+
+    Future<void> _loadUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userData = prefs.getString('user'); // Récupérer les données utilisateur
+
+    if (userData != null) {
+      setState(() {
+        user = User.fromJSON(jsonDecode(userData)); // Convertir en objet User
+      });
+    }
   }
 
   @override
