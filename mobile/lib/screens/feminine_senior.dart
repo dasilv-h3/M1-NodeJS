@@ -42,21 +42,13 @@ class _SectionFeminineSeniorScreenState extends State<SectionFeminineSeniorScree
 
       return matches;
     }).toList();
-
-
-    // setState(() {
-    //   matches = data; 
-    // });
   } else {
-    // setState(() {
-    //   matches = [];
-    // });
     throw Error();
   }
 }
 
 
-      @override
+ @override
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: Navbar(),
@@ -100,7 +92,7 @@ Widget build(BuildContext context) {
                       colors: [Colors.blue.shade500, Colors.green.shade500],
                     ).createShader(bounds),
                     child: Text(
-                      '🏆 Matches Passés',
+                      '🏆 Matches',
                       style: TextStyle(
                         fontSize: 24, // Équivalent à text-3xl
                         fontWeight: FontWeight.w800, // Équivalent à font-extrabold
@@ -112,98 +104,108 @@ Widget build(BuildContext context) {
                   SizedBox(height: 16), // Espacement entre le titre et la liste des matchs
 
                   // FutureBuilder
-                  FutureBuilder(
-                    future: fetchData(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text(
-                          'Erreur lors du chargement des matchs',
-                          style: TextStyle(color: Colors.red, fontSize: 16),
-                        );
-                      } else if (!snapshot.hasData || (snapshot.data as List).isEmpty) {
-                        return Text(
-                          'Aucun match trouvé',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                        );
-                      } else {
-                        List<Matches> matches = snapshot.requireData;
+                Expanded(
+  child: SingleChildScrollView(
+    child: FutureBuilder(
+      future: fetchData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text(
+              'Erreur lors du chargement des matchs',
+              style: TextStyle(color: Colors.red, fontSize: 16),
+            ),
+          );
+        } else if (!snapshot.hasData || (snapshot.data as List).isEmpty) {
+          return Center(
+            child: Text(
+              'Aucun match trouvé',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          );
+        } else {
+          List<Matches> matches = snapshot.requireData;
 
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: matches.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              elevation: 4, // Effet d'ombre pour un rendu plus esthétique
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'FrontKick FC',
-                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: true,
-                                          ),
-                                        ),
-                                        Image.asset(
-                                          'assets/img/versus.png',
-                                          height: 30,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            matches[index].team_name ?? 'Équipe inconnue',
-                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                            textAlign: TextAlign.center,
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: true,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            matches[index].date ?? 'Date inconnue',
-                                            style: TextStyle(color: Colors.grey),
-                                            textAlign: TextAlign.right,
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: true,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(), // Désactive le scroll interne
+            itemCount: matches.length,
+            itemBuilder: (context, index) {
+              return Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'FrontKick FC',
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                            ),
+                          ),
+                          Image.asset(
+                            'assets/img/versus.png',
+                            height: 30,
+                          ),
+                          Expanded(
+                            child: Text(
+                              matches[index].team_name ?? 'Équipe inconnue',
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              matches[index].date ?? 'Date inconnue',
+                              style: TextStyle(color: Colors.grey),
+                              textAlign: TextAlign.right,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                            ),
+                          ),
+                        ],
+                      ),
 
-                                    // Score sous l'image "versus.png"
-                                    SizedBox(height: 8), // Espacement
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          matches[index].score ?? 'Score inconnu',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.blue.shade500,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }
-                    },
+                      // Score sous l'image "versus.png"
+                      SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            matches[index].score ?? 'Score inconnu',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade500,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
+                ),
+              );
+            },
+          );
+        }
+      },
+    ),
+  ),
+),
+
                 ],
               ),
             ),

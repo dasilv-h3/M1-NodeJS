@@ -121,13 +121,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
-          _buildListTile(
-            context,
-            text: 'Ajouter une actualité',
-            route: '/add_news',
-            color: Colors.purple,
-            icon: Icons.add_circle,
-          ),
+          token != null 
+          ? _buildListTile(
+              context,
+              text: 'Ajouter une actualité',
+              route: '/add_news',
+              color: Colors.purple,
+              icon: Icons.add_circle,
+            )
+          : SizedBox(), // Retourne un widget vide si le token est null
           _buildListTile(
             context,
             text: 'Préférences utilisateur',
