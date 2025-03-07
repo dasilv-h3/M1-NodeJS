@@ -18,7 +18,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
       title: Center(
         child: GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamed(context, '/'); // Redirection vers la page "/"
           },
           child: Image.asset('assets/img/logo3.png', height: 100),
         ),

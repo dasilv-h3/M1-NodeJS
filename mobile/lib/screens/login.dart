@@ -1,4 +1,6 @@
 import 'package:fluterproject/service/api_config.dart';
+import 'package:fluterproject/widgets/custom_drawer.dart';
+import 'package:fluterproject/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -26,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
       final email = _emailController.text;
       final password = _passwordController.text;
 
-      try {
+      
         final url = Uri.parse('${ApiConfig.baseUrl}users/login');
         final response = await http.post(
           url,
@@ -47,32 +49,24 @@ class _LoginScreenState extends State<LoginScreen> {
             SnackBar(content: Text('Connexion réussie !')),
           );
 
-          Navigator.pushReplacementNamed(context, '/');
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Erreur de connexion, vérifiez vos identifiants.')),
-          );
-        }
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Une erreur est survenue, veuillez réessayer.')),
-        );
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
+        // Naviguer vers une autre page après la connexion réussie
+        Navigator.pushReplacementNamed(context, '/'); // Exemple de redirection
+      } else {
+        // Afficher un message d'erreur si la connexion échoue
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erreur de connexion')));
       }
+
+      // Réinitialiser les champs après soumission
+      _emailController.clear();
+      _passwordController.clear();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Connexion'),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent,
-      ),
+      appBar:Navbar(),
+      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -104,9 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer un email';
                   }
-                  if (!RegExp(
-                    r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
-                  ).hasMatch(value)) {
+                  if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
                     return 'Veuillez entrer un email valide';
                   }
                   return null;
@@ -161,3 +153,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+

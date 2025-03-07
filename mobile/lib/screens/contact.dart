@@ -1,3 +1,5 @@
+import 'package:fluterproject/widgets/custom_drawer.dart';
+import 'package:fluterproject/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
 class ContactScreen extends StatefulWidget {
@@ -30,7 +32,8 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Contactez-nous')),
+      appBar: Navbar(),
+      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

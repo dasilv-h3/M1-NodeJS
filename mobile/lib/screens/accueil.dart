@@ -1,4 +1,5 @@
 import 'package:fluterproject/model/club.dart';
+import 'package:fluterproject/model/matches.dart';
 import 'package:fluterproject/model/news.dart';
 import 'package:fluterproject/service/api_service.dart';
 import 'package:fluterproject/widgets/club_info.dart';
@@ -21,12 +22,14 @@ class _AccueilScreenState extends State<AccueilScreen> {
   List<News> news = []; // Définition des news en tant qu'attribut de la classe
   bool isLoading = true; // Variable d'état pour le chargement
   Club? club;
+  List<Matches> matches = [];
 
   @override
   void initState() {
     super.initState();
     displaydatas();
-    // fetchClubInfo();
+    fetchHistory();
+    fetchMatches();
     fetchNews();
   }
 
@@ -41,33 +44,6 @@ class _AccueilScreenState extends State<AccueilScreen> {
     }
   }
 
-  // Future<void> fetchClubInfo() async {
-  //   try {
-  //     final response =
-  //         await ApiService.getClub(); // Votre appel API pour récupérer les clubs
-
-  //     if (response is List && response.isNotEmpty) {
-  //       // Convertir la réponse en une liste de Clubs
-  //       setState(() {
-  //         clubs = Club.fromJsonList(
-  //           response,
-  //         ); // Utilise fromJsonList pour convertir la liste
-  //         isLoading = false;
-  //       });
-  //     } else {
-  //       setState(() {
-  //         clubs = []; // Si la réponse est vide
-  //         isLoading = false;
-  //       });
-  //     }
-  //   } catch (e) {
-  //     setState(() {
-  //       clubs = []; // En cas d'erreur
-  //       isLoading = false;
-  //     });
-  //   }
-  // }
-
   Future<void> fetchNews() async {
     try {
       final response = await ApiService.getNews();
@@ -81,6 +57,30 @@ class _AccueilScreenState extends State<AccueilScreen> {
         isLoading = false;
       });
     }
+  }
+
+  Future<void> fetchHistory() async {
+    final response = await ApiService.getClub();
+    if(club != null){
+      club = response;  
+      isLoading = false;
+    }else{
+      club = null;
+      isLoading = false;
+    }
+    print(club);
+  }
+
+  Future<void> fetchMatches() async {
+    try {
+      final response = await ApiService.getPreviousMatches();
+      matches = response;
+      isLoading = false;
+    } catch (e) {
+      matches = [];
+      isLoading = false;
+    }
+    print(matches);
   }
 
   @override
